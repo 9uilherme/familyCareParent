@@ -1,0 +1,47 @@
+<div class="container-fluid">
+  <div class="page-title">
+    <div class="row">
+      <div class="col-sm-6">
+        <h4>Consultas<strong>({{ consultas?.length }})</strong></h4>
+      </div>
+      <div class="col-sm-6">
+          <button class="btn btn-sm btn-primary float-right align-middle">Nova Consulta</button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-block">
+          <div class="table-overflow">
+            <table width="100%" class="table table-striped table-lg table-hover">
+              <thead>
+                <tr role="row">
+                  <th class="sorting_disabled align-middle w-30">Descrição</th>
+                  <th class="sorting_disabled align-middle w-30">Endereço</th>
+                  <th class="sorting_disabled align-middle text-right w-40">Açoes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of consultas" role="row">
+                  <td class="align-middle w-30">
+                    <div class="list-info">
+                      <div class="info pl-0">
+                        <span class="title">{{item.descricao}}</span>
+                        <span class="sub-title">{{item.id}}</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="align-middle w-30">{{item.endereco}}</td>
+                  <td class="align-middle text-right w-40">
+                    <button class="btn btn-sm btn-default edit"><i class="ti-pencil mr-1"></i>Editar</button>
+                    <button class="btn btn-sm btn-danger"><i class="ti-trash mr-1"></i>Remover</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

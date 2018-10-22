@@ -1,0 +1,55 @@
+<h4 class="text-center"> Faça o seu cadastro aqui</h4>
+
+<form [formGroup]="signupForm" class="form mt-4" (submit)="signup()">
+    <div class="form-group">
+        <input #emailInput formControlName="email"  placeholder="email" class="form-control" autofocus >
+        <ap-vmessage
+            *ngIf="signupForm.get('email').errors?.required"    
+            text="E-mail é requerido!">
+        </ap-vmessage>
+        <ap-vmessage
+            *ngIf="signupForm.get('email').errors?.email"    
+            text="Invalid e-mail!">
+        </ap-vmessage>
+        <ap-vmessage
+            *ngIf="signupForm.get('email').errors?.userNameTaken"    
+                text="E-mail indisponível">
+        </ap-vmessage>
+        <small *ngIf="signupForm.get('email').valid" class="text-success">E-mail Disponível</small>
+    </div>
+    <div class="form-group">
+        <input formControlName="nome" placeholder="Nome completo" class="form-control">
+        <ap-vmessage
+            *ngIf="signupForm.get('nome').errors?.required"    
+            text="Nome completo name é requerido!">
+        </ap-vmessage>
+        <ap-vmessage
+            *ngIf="signupForm.get('nome').errors?.minlength"    
+                text="O Tamanho mínimo é 2!">
+        </ap-vmessage>
+        <ap-vmessage
+            *ngIf="signupForm.get('nome').errors?.maxlength"    
+            text="O Tamanho máximo é 50!">
+        </ap-vmessage>
+    </div>
+    <div class="form-group">
+        <input formControlName="password" type="password" placeholder="Senha" class="form-control">
+        <ap-vmessage
+            *ngIf="signupForm.get('password').errors?.required"    
+            text="Senha é requerida!">
+        </ap-vmessage>
+        <ap-vmessage
+            *ngIf="signupForm.get('password').errors?.minlength"    
+            text="O tamanho mínimo é 6">
+        </ap-vmessage>
+        <ap-vmessage
+            *ngIf="signupForm.get('password').errors?.maxlength"    
+            text="O tamanho máximo é 14">
+        </ap-vmessage>
+    </div>
+    <button [disabled]="signupForm.invalid || signupForm.pending"  class="btn btn-primary btn-block">Register</button>
+    <br/>
+    <p>Já está cadastrado?
+        <a [routerLink]="['']"> Acesse o sistema!</a>
+    </p>
+</form>
