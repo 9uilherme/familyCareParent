@@ -4,8 +4,8 @@
     <small>Agende aqui o seu medicamento</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="#">Medicamentos</a></li>
+    <li><a [routerLink]="['']"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a [routerLink]="['../list-medicamento']">Medicamentos</a></li>
     <li class="active">Novo Medicamento</li>
   </ol>
 </section>
@@ -128,6 +128,7 @@
                         </div>
                         <input type="text"
                           bsDatepicker
+                          [(ngModel)]="medicamento.data" 
                           [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-dark-blue' }"
                           formControlName="data"
                           placement="bottom"
@@ -145,6 +146,7 @@
                       <div class="input-group">
                           <timepicker 
                           formControlName="hora" 
+                          [(ngModel)]="medicamento.hora"
                           id="inputHora" [showMeridian]="false"></timepicker>
                       </div>
                       <div *ngIf="f.hora.errors" class="invalid-feedback">

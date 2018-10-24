@@ -1,14 +1,15 @@
-export class Medicamento{
-    id: number;
-    nome:string;
-    data:Date;
-    hora:Date;
-    lembrete:boolean;
-    dosagem:number;
-    unidade:string;
-    intervalo:string;
-    quantidadeDias:number
+export class Medicamento{    
 
-    constructor(){}
+    constructor(
+        private id: number,
+        public nome:string,
+        private data:Date,
+        private hora:Date,
+        private lembrete:boolean,
+        private dosagem:number,
+        private unidade:string,
+        private intervalo:number,
+        private quantidadeDias:number       
+        ){}
 	
 }

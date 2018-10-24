@@ -26,7 +26,7 @@ export class NovoMedicamentoComponent implements OnInit {
       private route: ActivatedRoute,
       private platformDetectorService: PlatformDetectorService
     ){
-      this.medicamento = new Medicamento();
+      this.medicamento = new Medicamento(0,'',new Date(),new Date(),false,0,'',0,0);
     }
 
     ngOnInit(): void {
@@ -112,6 +112,7 @@ export class NovoMedicamentoComponent implements OnInit {
 
   consultarPorId(id:number){
     this.medicamentoService.consultarPorId(id).subscribe((medicamento:any) => {
+      console.log(medicamento);
       this.medicamento = medicamento;
   } , err => {
     this.showMessage({

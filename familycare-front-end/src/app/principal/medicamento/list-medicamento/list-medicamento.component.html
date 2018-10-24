@@ -4,8 +4,8 @@
     <small>Consulte aqui seus medicamentos</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="#">Medicamentos</a></li>
+    <li><a [routerLink]="['']"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a [routerLink]="['../list-medicamento']">Medicamentos</a></li>
     <li class="active">Listagem de Medicamentos</li>
   </ol>
 </section>
@@ -41,9 +41,9 @@
         <table class="table table-bordered">
           <tr>
             <th>Nome</th>
-            <th>Membro</th>
+            <th class="hidden-xs hidden-sm" >Membro</th>
             <th class="hidden-xs hidden-sm">Data</th>
-            <th class="hidden-xs">Hora</th>
+            <th class="hidden-xs hidden-sm">Hora</th>
             <th class="hidden-xs hidden-sm">Dosagem</th>
             <th class="hidden-xs hidden-sm">Período</th>
             <th class="hidden-xs hidden-sm">Intervalo</th>
@@ -52,9 +52,9 @@
           </tr>
           <tr *ngFor="let medicamento of medicamentoList">
             <td>{{medicamento.nome}}</td>
-            <td>{{medicamento.nome}}</td>
-            <td class="hidden-xs hidden-sm">{{medicamento.data | date:'dd/MM/yyyy'}}</td>
-            <td class="hidden-xs">{{medicamento.hora}}</td>
+            <td class="hidden-xs hidden-sm">{{medicamento.nome}}</td>
+            <td class="hidden-xs hidden-sm">{{medicamento.data}}</td>
+            <td class="hidden-xs hidden-sm">{{medicamento.hora}}</td>
             <td class="hidden-xs hidden-sm">{{medicamento.dosagem}} {{medicamento.unidade}} </td>
             <td class="hidden-xs hidden-sm">{{medicamento.quantidadeDias}} dias</td>
             <td class="hidden-xs hidden-sm">De {{medicamento.intervalo}} em {{medicamento.intervalo}} </td>
