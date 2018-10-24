@@ -38,6 +38,41 @@ export class NovoMedicamentoComponent implements OnInit {
                 Validators.minLength(1),
                 Validators.maxLength(255)
               ]
+          ],
+          dosagem: ['',
+              [
+                Validators.required
+              ]
+          ],
+          unidade: ['',
+              [
+                Validators.required
+              ]
+          ],
+          quantidadeDias: ['',
+              [
+                Validators.required
+              ]
+          ],
+          intervalo: ['',
+              [
+                Validators.required
+              ]
+          ],
+          data: ['',
+              [
+                Validators.required
+              ]
+          ],
+          hora: ['',
+              [
+                Validators.required
+              ]
+          ],
+          lembrete: [true,
+              [
+                Validators.required
+              ]
           ]
       });
 

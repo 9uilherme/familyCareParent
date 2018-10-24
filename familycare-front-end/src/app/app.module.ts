@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app.routing.module';
 import { PrincipalModule } from './principal/principal.module';
 import { DialogService } from './shared/services/dialog.service';
 
-
 @NgModule({
   declarations: [
     AppComponent

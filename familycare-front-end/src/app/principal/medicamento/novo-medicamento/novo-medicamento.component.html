@@ -41,29 +41,38 @@
                       <span *ngIf="f.nome.errors.maxlength" class="help-block">Tamanho Máximo de 255 caracteres</span>
                     </div>
                 </div>
-
                 <div class="row">
                   <div class="col-lg-6">
-                    <div class="form-group">
-                      <label>Date:</label>
-                      <div class="input-group date">
+                    <div [ngClass]="getFormGroupClass(f.data.invalid,f.dosagem.dirty)">
+                      <label for="inputData" class="control-label">Data</label>
+                      <div class="input-group">
                         <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" id="datepicker">
+                        <input type="text"
+                          formControlName="data"
+                          class="form-control"
+                          id="inputData">
+                      </div>
+                      <div *ngIf="f.data.errors" class="invalid-feedback">
+                        <span *ngIf="f.data.errors.required && submited" class="help-block">Data é obrigatória</span>
                       </div>
                     </div>
                   </div>
                   <div class="col-lg-6">
-                    <div class="bootstrap-timepicker">
-                      <div class="form-group">
-                        <label>Hora:</label>
-                        <div class="input-group">
-                          <div class="input-group-addon">
-                              <i class="fa fa-clock-o"></i>
-                          </div>
-                          <input type="text" class="form-control timepicker">
+                   <div [ngClass]="getFormGroupClass(f.hora.invalid,f.hora.dirty)">
+                      <label for="inputHora" class="control-label">Hora</label>
+                      <div class="input-group bootstrap-timepicker">
+                        <div class="input-group-addon">
+                            <i class="fa fa-clock-o"></i>
                         </div>
+                        <input type="text"
+                          formControlName="hora" 
+                          class="form-control timepicker"
+                          id="inputHora">
+                      </div>
+                      <div *ngIf="f.hora.errors" class="invalid-feedback">
+                        <span *ngIf="f.hora.errors.required && submited" class="help-block">Hora é obrigatória</span>
                       </div>
                     </div>
                   </div>
@@ -71,52 +80,72 @@
                 
                 <div class="row">
                   <div class="col-lg-6">
-                    <div class="form-group">
-                      <label>Dosagem:</label>
-                      <div class="input-group date">
-                        <div class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
+                    <div [ngClass]="getFormGroupClass(f.dosagem.invalid,f.dosagem.dirty)">
+                      <label for="inputDasagem" class="control-label">Dosagem</label>
+                      <input type="text"
+                        id="inputDasagem"
+                        formControlName="dosagem" 
+                        class="form-control" 
+                        placeholder="Dosagem">
+                        <div *ngIf="f.dosagem.errors" class="invalid-feedback">
+                            <span *ngIf="f.dosagem.errors.required && submited" class="help-block">Dosagem é obrigatória</span>
                         </div>
-                        <input type="text" class="form-control pull-right" id="datepicker">
-                      </div>
                     </div>
                   </div>
                   <div class="col-lg-6">
-                    <div class="form-group">
-                        <label>Unidade</label>
-                        <select class="form-control select2" style="width: 100%;">
-                          <option selected="selected">Alabama</option>
-                          <option>Alaska</option>
-                          <option>California</option>
-                          <option>Delaware</option>
-                          <option>Tennessee</option>
-                          <option>Texas</option>
-                          <option>Washington</option>
+                      <div [ngClass]="getFormGroupClass(f.unidade.invalid,f.unidade.dirty)">
+                          <label for="inputUnidade" class="control-label">Unidade</label>
+                        <select 
+                        formControlName="unidade"
+                        class="form-control select2"
+                        id="inputUnidade"
+                        style="width: 100%;">
+                          <option selected="selected">GOTAS</option>
+                          <option>MG</option>
+                          <option>JATOS</option>
+                          <option>ML</option>
+                          <option>SPRAY</option>
                         </select>
+                        <div *ngIf="f.unidade.errors" class="invalid-feedback">
+                            <span *ngIf="f.unidade.errors.required && submited" class="help-block">Unidade é obrigatória</span>
+                        </div>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-lg-6">
-                        <div class="form-group">
-                          <label>Número de dias:</label>
-                          <div class="input-group date">
-                            <div class="input-group-addon">
-                              <i class="fa fa-calendar"></i>
+                        <div [ngClass]="getFormGroupClass(f.quantidadeDias.invalid,f.quantidadeDias.dirty)">
+                          <label for="inputQuantidadeDias" class="control-label">Número de dias:</label>
+                          <input type="text"
+                            id="inputQuantidadeDias"
+                            formControlName="quantidadeDias" 
+                            class="form-control" 
+                            placeholder="Número de dias">
+                            <div *ngIf="f.quantidadeDias.errors" class="invalid-feedback">
+                                <span *ngIf="f.quantidadeDias.errors.required && submited" class="help-block">Número de dias é obrigatória</span>
                             </div>
-                            <input type="text" class="form-control pull-right" id="datepicker">
-                          </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="form-group">
-                          <label>Intervalo</label>
-                          <select class="form-control select2" style="width: 100%;">
-                            <option selected="selected">Alabama</option>
-                            <option>Alaska</option>
-                            <option>California</option>
-                            <option>Delaware</option>
+                      <div [ngClass]="getFormGroupClass(f.intervalo.invalid,f.intervalo.dirty)">
+                        <label for="inputIntervalo" class="control-label">Intervalo</label>
+                        <select 
+                          class="form-control select2" 
+                          style="width: 100%;"
+                          id="inputIntervalo"
+                          formControlName="intervalo">
+                            <option selected="selected">1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>6</option>
+                            <option>8</option>
+                            <option>12</option>
+                            <option>24</option>
                           </select>
+                          <div *ngIf="f.intervalo.errors" class="invalid-feedback">
+                              <span *ngIf="f.intervalo.errors.required && submited" class="help-block">Período é obrigatória</span>
+                          </div>
                         </div>
                     </div>
                   </div>

@@ -18,8 +18,6 @@
           <h3 class="box-title">Filtros</h3>
         </div>
 
-
-
         <div class="box-body">
 
             <div class="form-group">
@@ -32,9 +30,8 @@
                           id="nomeFilter">
                 </div>
             </div>
+      </div>   
 
-
-      </div>    
       <div class="box-footer">
           <button class="btn btn-info pull-left" (click)="limparFiltros()">Limpar Filtros</button>
           <button style="margin-left: 10px" class="btn btn-info pull-right" (click)="listarTodos()">Filtrar</button>
@@ -49,16 +46,18 @@
             <th class="hidden-xs">Hora</th>
             <th class="hidden-xs hidden-sm">Dosagem</th>
             <th class="hidden-xs hidden-sm">Período</th>
+            <th class="hidden-xs hidden-sm">Intervalo</th>
             <th style="width: 10px">&nbsp;</th>
             <th style="width: 10px">&nbsp;</th>
           </tr>
           <tr *ngFor="let medicamento of medicamentoList">
             <td>{{medicamento.nome}}</td>
-            <td>{{medicamento.membro.nome}}</td>
+            <td>{{medicamento.nome}}</td>
             <td class="hidden-xs hidden-sm">{{medicamento.data}}</td>
             <td class="hidden-xs">{{medicamento.hora}}</td>
-            <td class="hidden-xs hidden-sm">{{medicamento.dosagem}}</td>
-            <td class="hidden-xs hidden-sm">{{medicamento.dias}}</td>
+            <td class="hidden-xs hidden-sm">{{medicamento.dosagem}} {{medicamento.unidade}} </td>
+            <td class="hidden-xs hidden-sm">{{medicamento.quantidadeDias}} dias</td>
+            <td class="hidden-xs hidden-sm">De {{medicamento.intervalo}} em {{medicamento.intervalo}} </td>
             <td>
                 <button class="btn btn-primary" (click)="edit(medicamento.id)">Editar</button>
             </td>
