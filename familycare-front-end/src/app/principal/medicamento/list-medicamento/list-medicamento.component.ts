@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { DialogService } from 'src/app/shared/services/dialog.service';
-import { Medicameto } from '../medicamento';
-import { MedicamentoService } from '../medicamento.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DialogService } from 'src/app/shared/services/dialog.service';
+import { MedicamentoService } from '../medicamento.service';
+import { Medicamento } from '../medicamento';
 
 @Component({
   selector: 'app-list-medicamento',
@@ -16,7 +16,7 @@ export class ListMedicamentoComponent implements OnInit {
   pages:Array<number>;
   message : {};
   classCss : {};
-  medicamentoList:Medicameto[]= [];
+  medicamentoList:Medicamento[]= [];
   nomeFilter:string = ''
   
   constructor(
@@ -29,7 +29,7 @@ export class ListMedicamentoComponent implements OnInit {
   }
 
   listarTodos(){
-    this.medicamentoService.listarTodos().subscribe((list:Medicameto[]) => {
+    this.medicamentoService.listarTodos().subscribe((list:Medicamento[]) => {
       this.medicamentoList = list;
     } , err => {
       this.showMessage({

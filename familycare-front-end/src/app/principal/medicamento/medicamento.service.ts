@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Medicameto } from './medicamento';
 import { API_URL } from '../../ambiente/ambiente';
+import { Medicamento } from './medicamento';
 
 @Injectable()
 export class MedicamentoService {
     
     constructor(private http: HttpClient){}
 
-    salvar(medicamento: Medicameto){
+    salvar(medicamento: Medicamento){
         return this.http.post(`${API_URL}medicamentos`, medicamento);
     }
 

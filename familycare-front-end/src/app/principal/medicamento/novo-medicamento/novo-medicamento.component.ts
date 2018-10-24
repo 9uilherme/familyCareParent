@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PlatformDetectorService } from 'src/app/core/platform-detector/platform-detector.service';
-import { Medicameto } from '../medicamento';
+import { Medicamento } from '../medicamento';
 import { MedicamentoService } from '../medicamento.service';
 
 @Component({
@@ -16,6 +16,7 @@ export class NovoMedicamentoComponent implements OnInit {
   submited:boolean = false;
   unidades:string[] = [];
   intervalos:string[] = [];
+  medicamento:Medicamento;
   @ViewChild('inputNome') inputNome: ElementRef<HTMLInputElement>;
 
   constructor(
@@ -24,7 +25,9 @@ export class NovoMedicamentoComponent implements OnInit {
       private router: Router,
       private route: ActivatedRoute,
       private platformDetectorService: PlatformDetectorService
-    ){}
+    ){
+      this.medicamento = new Medicamento();
+    }
 
     ngOnInit(): void {
       let id:number = this.route.snapshot.params['id'];
@@ -109,7 +112,7 @@ export class NovoMedicamentoComponent implements OnInit {
 
   consultarPorId(id:number){
     this.medicamentoService.consultarPorId(id).subscribe((medicamento:any) => {
-      this.medicamentoForm = medicamento;
+      this.medicamento = medicamento;
   } , err => {
     this.showMessage({
       type: 'error',
@@ -124,9 +127,8 @@ export class NovoMedicamentoComponent implements OnInit {
 
   salvar(){
       this.submited = true;
-      const novoMedicamento = this.medicamentoForm.getRawValue() as Medicameto;
-      this.medicamentoService.salvar(novoMedicamento)
-      .subscribe((medicamento: Medicameto) => {
+      this.medicamentoService.salvar(this.medicamento)
+      .subscribe((medicamento: Medicamento) => {
         this.medicamentoForm.reset();
         this.submited = false;
         this.showMessage({

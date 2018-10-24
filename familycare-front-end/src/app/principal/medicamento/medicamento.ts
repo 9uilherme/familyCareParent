@@ -1,4 +1,4 @@
-export interface Medicameto{
+export class Medicamento{
     id: number;
     nome:string;
     data:Date;
@@ -8,5 +8,7 @@ export interface Medicameto{
     unidade:string;
     intervalo:string;
     quantidadeDias:number
+
+    constructor(){}
 	
 }
