@@ -8,13 +8,15 @@ import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './menu/menu.component';
 import { PrincipalComponent } from './principal.component';
 import { RouterModule } from '@angular/router';
-import { NovoMedicamentoComponent } from './novo-medicamento/novo-medicamento.component';
 import { PrincipalRoutingModule } from './principal.rounting.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { VmessageModule } from '../shared/components/vmessage/vmessage.module';
-import { NovoMedicamentoService } from './novo-medicamento/novo-medicamento.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from '../core/core.module';
+import { ListMedicamentoComponent } from './medicamento/list-medicamento/list-medicamento.component';
+import { NovoMedicamentoComponent } from './medicamento/novo-medicamento/novo-medicamento.component';
+import { MedicamentoService } from './medicamento/medicamento.service';
+import { BsDatepickerModule, TimepickerModule } from 'ngx-bootstrap';
 
 @NgModule({
     declarations:[
@@ -23,7 +25,8 @@ import { CoreModule } from '../core/core.module';
         MenuComponent,
         FooterComponent,
         NovoMedicamentoComponent,
-        ConsultaComponent
+        ConsultaComponent,
+        ListMedicamentoComponent
     ],
     imports: [
         HttpClientModule,
@@ -34,9 +37,11 @@ import { CoreModule } from '../core/core.module';
         FormsModule, 
         VmessageModule,
         CoreModule,
+        BsDatepickerModule.forRoot(),
+        TimepickerModule.forRoot()
     ],
     providers:[
-        NovoMedicamentoService,
+        MedicamentoService,
         ConsultaService
     ]
 })
