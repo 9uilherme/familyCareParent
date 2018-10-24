@@ -23,6 +23,14 @@ export class MedicamentoService {
 
     consultarPorId(id:number){
         return this.http.get(`${API_URL}medicamentos/${id}`);
-      }
+    }
+
+    listarUnidades(){
+        return this.http.get(`${API_URL}unidades`);
+    }
+
+    listarIntervalos(){
+        return this.http.get(`${API_URL}intervalos`);
+    }
 
 }

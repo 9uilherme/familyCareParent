@@ -6,6 +6,11 @@ import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app.routing.module';
 import { PrincipalModule } from './principal/principal.module';
 import { DialogService } from './shared/services/dialog.service';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+
+registerLocaleData(localePt, 'pt-BR');
 
 @NgModule({
   declarations: [
@@ -19,6 +24,7 @@ import { DialogService } from './shared/services/dialog.service';
     CoreModule
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
     DialogService,
   ],
   bootstrap: [AppComponent]

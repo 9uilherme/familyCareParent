@@ -16,6 +16,7 @@ import { CoreModule } from '../core/core.module';
 import { ListMedicamentoComponent } from './medicamento/list-medicamento/list-medicamento.component';
 import { NovoMedicamentoComponent } from './medicamento/novo-medicamento/novo-medicamento.component';
 import { MedicamentoService } from './medicamento/medicamento.service';
+import { BsDatepickerModule, TimepickerModule } from 'ngx-bootstrap';
 
 @NgModule({
     declarations:[
@@ -35,7 +36,9 @@ import { MedicamentoService } from './medicamento/medicamento.service';
         ReactiveFormsModule,
         FormsModule, 
         VmessageModule,
-        CoreModule
+        CoreModule,
+        BsDatepickerModule.forRoot(),
+        TimepickerModule.forRoot()
     ],
     providers:[
         MedicamentoService,

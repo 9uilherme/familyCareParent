@@ -5,7 +5,6 @@ import { PlatformDetectorService } from 'src/app/core/platform-detector/platform
 import { Medicameto } from '../medicamento';
 import { MedicamentoService } from '../medicamento.service';
 
-
 @Component({
   templateUrl: './novo-medicamento.component.html'
 })
@@ -15,6 +14,8 @@ export class NovoMedicamentoComponent implements OnInit {
   message:any = {};
   classCss:any = {};
   submited:boolean = false;
+  unidades:string[] = [];
+  intervalos:string[] = [];
   @ViewChild('inputNome') inputNome: ElementRef<HTMLInputElement>;
 
   constructor(
@@ -23,7 +24,7 @@ export class NovoMedicamentoComponent implements OnInit {
       private router: Router,
       private route: ActivatedRoute,
       private platformDetectorService: PlatformDetectorService
-    ){ }
+    ){}
 
     ngOnInit(): void {
       let id:number = this.route.snapshot.params['id'];
@@ -59,12 +60,12 @@ export class NovoMedicamentoComponent implements OnInit {
                 Validators.required
               ]
           ],
-          data: ['',
+          data: [new Date(),
               [
                 Validators.required
               ]
           ],
-          hora: ['',
+          hora: [new Date(),
               [
                 Validators.required
               ]
@@ -79,6 +80,31 @@ export class NovoMedicamentoComponent implements OnInit {
       if(this.platformDetectorService.isPlatformBrowser){
           this.inputNome.nativeElement.focus();
       }
+
+      this.listarUnidades();
+      this.listarIntervalos();
+  }
+
+  listarUnidades(){
+    this.medicamentoService.listarUnidades().subscribe((unidades:string[]) => {
+      this.unidades = unidades;
+    } , err => {
+      this.showMessage({
+        type: 'error',
+        text: err['error']['errors'][0]
+      });
+    });
+  }
+
+  listarIntervalos(){
+    this.medicamentoService.listarIntervalos().subscribe((intervalos:string[]) => {
+      this.intervalos = intervalos;
+    } , err => {
+      this.showMessage({
+        type: 'error',
+        text: err['error']['errors'][0]
+      });
+    });
   }
 
   consultarPorId(id:number){
