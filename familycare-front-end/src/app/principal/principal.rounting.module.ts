@@ -2,8 +2,9 @@ import { ConsultaComponent } from './consulta/consulta.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { PrincipalComponent } from './principal.component';
-import { NovoMedicamentoComponent } from './novo-medicamento/novo-medicamento.component';
 import { AuthGuardPricipal } from '../core/auth/auth-principal.guard';
+import { NovoMedicamentoComponent } from './medicamento/novo-medicamento/novo-medicamento.component';
+import { ListMedicamentoComponent } from './medicamento/list-medicamento/list-medicamento.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,14 @@ const routes: Routes = [
       {
         path: 'novo-medicamento', 
         component: NovoMedicamentoComponent
+      },
+      {
+        path: 'novo-medicamento/:id', 
+        component: NovoMedicamentoComponent
+      },
+      {
+        path: 'list-medicamento', 
+        component: ListMedicamentoComponent
       },
       {
         path: 'consulta', 

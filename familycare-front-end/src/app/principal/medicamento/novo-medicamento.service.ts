@@ -1,4 +1,4 @@
-import { API_URL } from './../../ambiente/ambiente';
+import { API_URL } from '../../ambiente/ambiente';
 
 import { Injectable } from '@angular/core';
 import { Medicameto } from './medicamento';

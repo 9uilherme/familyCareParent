@@ -1,9 +1,10 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { PlatformDetectorService } from 'src/app/core/platform-detector/platform-detector.service';
-import { NovoMedicamentoService } from './novo-medicamento.service';
-import { Medicameto } from './medicamento';
+import { Medicameto } from '../medicamento';
+import { MedicamentoService } from '../medicamento.service';
+
 
 @Component({
   templateUrl: './novo-medicamento.component.html'
@@ -18,12 +19,18 @@ export class NovoMedicamentoComponent implements OnInit {
 
   constructor(
       private formBuilder: FormBuilder,
-      private novoMedicamentoService: NovoMedicamentoService,
+      private medicamentoService: MedicamentoService,
       private router: Router,
+      private route: ActivatedRoute,
       private platformDetectorService: PlatformDetectorService
     ){ }
 
     ngOnInit(): void {
+      let id:number = this.route.snapshot.params['id'];
+      if(id > 0){
+        this.consultarPorId(id);
+      }
+
       this.medicamentoForm = this.formBuilder.group({
           nome: ['',
               [
@@ -39,6 +46,17 @@ export class NovoMedicamentoComponent implements OnInit {
       }
   }
 
+  consultarPorId(id:number){
+    this.medicamentoService.consultarPorId(id).subscribe((medicamento:any) => {
+      this.medicamentoForm = medicamento;
+  } , err => {
+    this.showMessage({
+      type: 'error',
+      text: err['error']['errors'][0]
+    });
+  });
+  }
+
   get f() { 
       return this.medicamentoForm.controls; 
   }
@@ -46,7 +64,7 @@ export class NovoMedicamentoComponent implements OnInit {
   salvar(){
       this.submited = true;
       const novoMedicamento = this.medicamentoForm.getRawValue() as Medicameto;
-      this.novoMedicamentoService.salvar(novoMedicamento)
+      this.medicamentoService.salvar(novoMedicamento)
       .subscribe((medicamento: Medicameto) => {
         this.medicamentoForm.reset();
         this.submited = false;
