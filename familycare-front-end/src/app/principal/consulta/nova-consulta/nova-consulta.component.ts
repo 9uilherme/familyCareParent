@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ConsultaService } from './../consulta.service';
-import { Consulta } from '../consulta';
+import { Consulta, Membro, Profissional } from '../consulta';
 
 @Component({
   selector: 'app-consulta-form',
@@ -23,7 +23,8 @@ export class NovaConsultaComponent implements OnInit {
   ) {
 
     this.consulta = new Consulta();
-
+    this.consulta.membro = new Membro();
+    this.consulta.profissional = new Profissional();
   }
 
   ngOnInit(): void {

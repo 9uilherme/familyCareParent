@@ -34,7 +34,7 @@
                     class="form-control" 
                     #inputNome 
                     placeholder="Nome do Filho(a)" 
-                    [(ngModel)]="consulta.membro"
+                    [(ngModel)]="consulta.membro.nome"
                     autofocus>
                   <div *ngIf="f.filho.errors" class="invalid-feedback">
                       <span *ngIf="f.filho.errors.required && submitted" class="help-block">Nome do Filho é obrigatório</span>
@@ -49,7 +49,7 @@
                       class="form-control" 
                       #inputMedico 
                       placeholder="Nome do Médico(a)" 
-                      [(ngModel)]="consulta.profissional"
+                      [(ngModel)]="consulta.profissional.nome"
                       autofocus>
                     <div *ngIf="f.medico.errors" class="invalid-feedback">
                         <span *ngIf="f.medico.errors.required && submitted" class="help-block">Nome do Médico é obrigatório</span>

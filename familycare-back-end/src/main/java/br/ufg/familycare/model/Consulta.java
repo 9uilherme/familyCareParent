@@ -10,6 +10,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lombok.Data;
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Data

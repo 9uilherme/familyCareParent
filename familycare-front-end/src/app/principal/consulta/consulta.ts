@@ -1,3 +1,11 @@
+export class Membro {
+    nome: string;
+}
+
+export class Profissional {
+    nome: string;
+}
+
 export class Consulta {
 
     id:number;
@@ -7,8 +15,8 @@ export class Consulta {
     endereco: string;
     lembrar: boolean;
     // Criar entidade de membro
-    membro: any;
+    membro: Membro;
     // Criat entidade de profissional
-    profissional: any;
+    profissional: Profissional;
 
 }

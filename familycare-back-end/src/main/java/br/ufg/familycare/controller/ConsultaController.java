@@ -25,7 +25,7 @@ public class ConsultaController {
 	private ConsultaService consultaService;
 
 	@PostMapping("/consultas")
-	Consulta cadastrar(@Valid @RequestBody Consulta consulta) {
+	Consulta cadastrar(@RequestBody Consulta consulta) {
 		return consultaService.salvar(consulta);
 	}
 
