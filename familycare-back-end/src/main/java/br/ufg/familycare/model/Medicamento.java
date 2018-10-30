@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -15,45 +14,63 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import br.ufg.familycare.config.CustomerDateAndTimeDeserialize;
+import br.ufg.familycare.config.CustomerTimeDeserialize;
 import br.ufg.familycare.enums.EnumIntervalo;
 import br.ufg.familycare.enums.EnumUnidade;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
 @NoArgsConstructor
 public class Medicamento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Getter
 	@GeneratedValue
 	private Long id;
 
+	@Getter @Setter
 	private String nome;
 
 	@ManyToOne
+	@Getter @Setter
 	private Membro membro;
 
+	@Setter
 	@Temporal(TemporalType.DATE)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	@JsonDeserialize(using = CustomerDateAndTimeDeserialize.class)
 	private Date data;
 
+	@Getter @Setter
 	@Temporal(TemporalType.TIME)
+	@JsonDeserialize(using = CustomerTimeDeserialize.class)
 	private Date hora;
 
+	@Getter @Setter
 	private Boolean lembrete;
 
+	@Getter @Setter
 	private BigDecimal dosagem;
 
+	@Getter @Setter
 	@Enumerated(EnumType.STRING)
 	private EnumUnidade unidade;
 
+	@Getter @Setter
 	@Enumerated(EnumType.STRING)
 	private EnumIntervalo intervalo;
 
+	@Getter @Setter
 	private Integer quantidadeDias;
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ", timezone = "GMT-3")
+	public Date getData() {
+		return data;
+	}
 }
