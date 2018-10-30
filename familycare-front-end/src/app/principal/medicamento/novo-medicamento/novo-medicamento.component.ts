@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { PlatformDetectorService } from 'src/app/core/platform-detector/platform-detector.service';
 import { Medicamento } from '../medicamento';
 import { MedicamentoService } from '../medicamento.service';
+import { Membro } from '../../membro/membro';
 
 @Component({
   templateUrl: './novo-medicamento.component.html'
@@ -16,6 +17,7 @@ export class NovoMedicamentoComponent implements OnInit {
   submited:boolean = false;
   unidades:string[] = [];
   intervalos:string[] = [];
+  membros:Membro[] = [];
   medicamento:Medicamento;
   @ViewChild('inputNome') inputNome: ElementRef<HTMLInputElement>;
 
@@ -26,7 +28,7 @@ export class NovoMedicamentoComponent implements OnInit {
       private route: ActivatedRoute,
       private platformDetectorService: PlatformDetectorService
     ){
-      this.medicamento = new Medicamento(0,'',new Date(),new Date(),false,0,'',0,0);
+      this.medicamento = new Medicamento(0,'',null,new Date(),new Date(),false,0,'',0,0);
     }
 
     ngOnInit(): void {
@@ -41,6 +43,11 @@ export class NovoMedicamentoComponent implements OnInit {
                 Validators.required,
                 Validators.minLength(1),
                 Validators.maxLength(255)
+              ]
+          ],
+          membro: [null,
+              [
+                Validators.required
               ]
           ],
           dosagem: ['',
@@ -86,6 +93,7 @@ export class NovoMedicamentoComponent implements OnInit {
 
       this.listarUnidades();
       this.listarIntervalos();
+      this.listarMembros();
   }
 
   listarUnidades(){
@@ -102,6 +110,17 @@ export class NovoMedicamentoComponent implements OnInit {
   listarIntervalos(){
     this.medicamentoService.listarIntervalos().subscribe((intervalos:string[]) => {
       this.intervalos = intervalos;
+    } , err => {
+      this.showMessage({
+        type: 'error',
+        text: err['error']['errors'][0]
+      });
+    });
+  }
+
+  listarMembros(){
+    this.medicamentoService.listarMembros().subscribe((membros:Membro[]) => {
+      this.membros = membros;
     } , err => {
       this.showMessage({
         type: 'error',
@@ -132,6 +151,7 @@ export class NovoMedicamentoComponent implements OnInit {
       .subscribe((medicamento: Medicamento) => {
         this.medicamentoForm.reset();
         this.submited = false;
+        this.medicamento = new Medicamento(0,'',null,new Date(),new Date(),false,0,'',0,0);
         this.showMessage({
           type: 'success',
           text: `Registered ${medicamento.nome} successfully`

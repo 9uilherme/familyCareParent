@@ -1,6 +1,6 @@
 <section class="content-header">
   <h1>
-    Cadastro de Medicameto
+    Cadastro de Medicamentos
     <small>Agende aqui o seu medicamento</small>
   </h1>
   <ol class="breadcrumb">
@@ -42,12 +42,31 @@
                       <span *ngIf="f.nome.errors.maxlength" class="help-block">Tamanho Máximo de 255 caracteres</span>
                     </div>
                 </div>
+
+                <div [ngClass]="getFormGroupClass(f.membro.invalid,f.membro.dirty)">
+                    <label for="inputMembro" class="control-label">Membro da família</label>
+                  <select 
+                  formControlName="membro"
+                  class="form-control select2"
+                  id="inputMembro"
+                  [(ngModel)]="medicamento.membro" 
+                  style="width: 100%;">
+                    <option 
+                      *ngFor="let membro of membros"
+                      [ngValue]="membro">
+                      {{membro.nome}}
+                    </option>
+                  </select>
+                  <div *ngIf="f.membro.errors" class="invalid-feedback">
+                      <span *ngIf="f.membro.errors.required && submited" class="help-block">Membro é obrigatório</span>
+                  </div>
+                </div>
                
                 <div class="row">
                   <div class="col-lg-6">
                     <div [ngClass]="getFormGroupClass(f.dosagem.invalid,f.dosagem.dirty)">
                       <label for="inputDasagem" class="control-label">Dosagem</label>
-                      <input type="text"
+                      <input type="text" mask="0*"
                         id="inputDasagem"
                         formControlName="dosagem" 
                         class="form-control" 
@@ -86,6 +105,7 @@
                         <div [ngClass]="getFormGroupClass(f.quantidadeDias.invalid,f.quantidadeDias.dirty)">
                           <label for="inputQuantidadeDias" class="control-label">Número de dias:</label>
                           <input type="text"
+                            mask="0*"
                             id="inputQuantidadeDias"
                             formControlName="quantidadeDias" 
                             class="form-control" 
@@ -129,7 +149,7 @@
                         <input type="text"
                           bsDatepicker
                           [(ngModel)]="medicamento.data" 
-                          [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-dark-blue' }"
+                          [bsConfig]="{ containerClass: 'theme-dark-blue' }"
                           formControlName="data"
                           placement="bottom"
                           class="form-control"
@@ -147,7 +167,7 @@
                           <timepicker 
                           formControlName="hora" 
                           [(ngModel)]="medicamento.hora"
-                          id="inputHora" [showMeridian]="false"></timepicker>
+                          id="inputHora" [showMeridian]="false" [showSpinners]="false"></timepicker>
                       </div>
                       <div *ngIf="f.hora.errors" class="invalid-feedback">
                         <span *ngIf="f.hora.errors.required && submited" class="help-block">Hora é obrigatória</span>
@@ -159,7 +179,7 @@
             </div>
             <div class="box-footer">
               <button [disabled]="medicamentoForm.invalid || medicamentoForm.pending"  class="btn btn-info pull-right">Salvar</button>
-              <button type="submit" class="btn btn-default">Cancel</button>
+              <button class="btn btn-default">Cancel</button>
             </div>
           </form>
           </div>

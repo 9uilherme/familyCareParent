@@ -52,8 +52,8 @@
           </tr>
           <tr *ngFor="let medicamento of medicamentoList">
             <td>{{medicamento.nome}}</td>
-            <td class="hidden-xs hidden-sm">{{medicamento.nome}}</td>
-            <td class="hidden-xs hidden-sm">{{medicamento.data}}</td>
+            <td class="hidden-xs hidden-sm">{{medicamento.membro.nome}}</td>
+            <td class="hidden-xs hidden-sm">{{medicamento.data | date: 'dd/MM/yyyy' }}</td>
             <td class="hidden-xs hidden-sm">{{medicamento.hora}}</td>
             <td class="hidden-xs hidden-sm">{{medicamento.dosagem}} {{medicamento.unidade}} </td>
             <td class="hidden-xs hidden-sm">{{medicamento.quantidadeDias}} dias</td>
