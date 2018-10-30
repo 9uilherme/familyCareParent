@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum EnumIntervalo {
 
-
 	A(1),
 	B(2),
 	C(3),
@@ -24,5 +23,4 @@ public enum EnumIntervalo {
 	public int getIntervalo() {
 		return intervalo;
 	}
-
 }

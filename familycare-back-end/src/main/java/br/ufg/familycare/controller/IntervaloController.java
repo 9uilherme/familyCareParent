@@ -9,10 +9,9 @@ import io.swagger.annotations.Api;
 @RestController
 @Api(value = "Intervalos", description = "Enum de intervalos")
 public class IntervaloController {
-
+	
 	@GetMapping("/intervalos")
 	EnumIntervalo[] listarTodos() {
 		return EnumIntervalo.values();
 	}
-
 }

@@ -18,7 +18,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import br.ufg.familycare.config.CustomerDateAndTimeDeserialize;
 import br.ufg.familycare.config.CustomerTimeDeserialize;
-import br.ufg.familycare.enums.EnumIntervalo;
 import br.ufg.familycare.enums.EnumUnidade;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -53,7 +52,7 @@ public class Medicamento implements Serializable {
 	private Date hora;
 
 	@Getter @Setter
-	private Boolean lembrete;
+	private boolean lembrete;
 
 	@Getter @Setter
 	private BigDecimal dosagem;
@@ -63,8 +62,7 @@ public class Medicamento implements Serializable {
 	private EnumUnidade unidade;
 
 	@Getter @Setter
-	@Enumerated(EnumType.STRING)
-	private EnumIntervalo intervalo;
+	private Integer intervalo;
 
 	@Getter @Setter
 	private Integer quantidadeDias;
