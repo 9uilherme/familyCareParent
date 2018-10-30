@@ -46,9 +46,11 @@
                     <label for="inputMembro" class="control-label">Membro da família</label>
                   <select 
                   formControlName="membro"
+                  [compareWith]="compare"
                   class="form-control select2"
                   id="inputMembro"
                   style="width: 100%;">
+                    <option value="">Selecione</option>
                     <option 
                       *ngFor="let membro of membros"
                       [ngValue]="membro">
@@ -58,7 +60,7 @@
                   <div *ngIf="f.membro.errors" class="invalid-feedback">
                       <span *ngIf="f.membro.errors.required && submited" class="help-block">Membro é obrigatório</span>
                   </div>
-                </div>
+                </div>     
                
                 <div class="row">
                   <div class="col-lg-6">
@@ -83,6 +85,7 @@
                         class="form-control select2"
                         id="inputUnidade"
                         style="width: 100%;">
+                          <option value="">Selecione</option>
                           <option 
                             *ngFor="let unidade of unidades"
                             [value]="unidade">
@@ -94,6 +97,15 @@
                         </div>
                       </div>
                     </div>
+                  </div>
+
+                  <div>
+                    <label for="inputLembrete" class="control-label">
+                        <input type="checkbox"
+                          formControlName="lembrete"
+                          id="inputLembrete"
+                        > Lembrete
+                    </label>
                   </div>
 
                   <div class="row">
@@ -155,6 +167,7 @@
                           style="width: 100%;"
                           id="inputIntervalo"
                           formControlName="intervalo">
+                          <option value="">Selecione</option>
                           <option 
                             *ngFor="let intervalo of intervalos"
                             [value]="intervalo">

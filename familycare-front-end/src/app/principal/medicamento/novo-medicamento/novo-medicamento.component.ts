@@ -16,7 +16,7 @@ export class NovoMedicamentoComponent implements OnInit {
   classCss:any = {};
   submited:boolean = false;
   unidades:string[] = [];
-  intervalos:string[] = [];
+  intervalos:number[] = [];
   membros:Membro[] = [];
   @ViewChild('inputNome') inputNome: ElementRef<HTMLInputElement>;
 
@@ -55,7 +55,7 @@ export class NovoMedicamentoComponent implements OnInit {
             Validators.maxLength(255)
           ]
       ],
-      membro: [{},
+      membro: ['',
           [
             Validators.required
           ]
@@ -89,6 +89,11 @@ export class NovoMedicamentoComponent implements OnInit {
           [
             Validators.required
           ]
+      ],
+      lembrete:[true,
+        [
+          Validators.required
+        ]
       ]
     });
   }
@@ -104,7 +109,8 @@ export class NovoMedicamentoComponent implements OnInit {
         quantidadeDias: medicamento.quantidadeDias,
         intervalo: medicamento.intervalo,
         data: new Date(medicamento.data),
-        hora: medicamento.hora
+        hora: medicamento.hora,
+        lembrete: medicamento.lembrete
       });
   } , err => {
     this.showMessage({
@@ -112,6 +118,13 @@ export class NovoMedicamentoComponent implements OnInit {
       text: err['error']['errors'][0]
     });
   });
+  }
+
+  compare(m1:Membro, m2:Membro) {
+   if(m1 != null && m2 != null){
+     return m1.id === m2.id;
+   }
+   return false;
   }
 
   listarUnidades(){
@@ -126,7 +139,7 @@ export class NovoMedicamentoComponent implements OnInit {
   }
 
   listarIntervalos(){
-    this.medicamentoService.listarIntervalos().subscribe((intervalos:string[]) => {
+    this.medicamentoService.listarIntervalos().subscribe((intervalos:number[]) => {
       this.intervalos = intervalos;
     } , err => {
       this.showMessage({
