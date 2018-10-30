@@ -18,7 +18,6 @@ export class NovoMedicamentoComponent implements OnInit {
   unidades:string[] = [];
   intervalos:string[] = [];
   membros:Membro[] = [];
-  medicamento:Medicamento;
   @ViewChild('inputNome') inputNome: ElementRef<HTMLInputElement>;
 
   constructor(
@@ -27,73 +26,92 @@ export class NovoMedicamentoComponent implements OnInit {
       private router: Router,
       private route: ActivatedRoute,
       private platformDetectorService: PlatformDetectorService
-    ){
-      this.medicamento = new Medicamento(0,'',null,new Date(),new Date(),false,0,'',0,0);
-    }
+    ){}
 
     ngOnInit(): void {
+      this.inicializarFormMedicamento();
+      this.listarUnidades();
+      this.listarIntervalos();
+      this.listarMembros();
+
       let id:number = this.route.snapshot.params['id'];
+
       if(id > 0){
         this.consultarPorId(id);
       }
 
-      this.medicamentoForm = this.formBuilder.group({
-          nome: ['',
-              [
-                Validators.required,
-                Validators.minLength(1),
-                Validators.maxLength(255)
-              ]
-          ],
-          membro: [null,
-              [
-                Validators.required
-              ]
-          ],
-          dosagem: ['',
-              [
-                Validators.required
-              ]
-          ],
-          unidade: ['',
-              [
-                Validators.required
-              ]
-          ],
-          quantidadeDias: ['',
-              [
-                Validators.required
-              ]
-          ],
-          intervalo: ['',
-              [
-                Validators.required
-              ]
-          ],
-          data: [new Date(),
-              [
-                Validators.required
-              ]
-          ],
-          hora: [new Date(),
-              [
-                Validators.required
-              ]
-          ],
-          lembrete: [true,
-              [
-                Validators.required
-              ]
-          ]
-      });
-
       if(this.platformDetectorService.isPlatformBrowser){
           this.inputNome.nativeElement.focus();
       }
+  }
 
-      this.listarUnidades();
-      this.listarIntervalos();
-      this.listarMembros();
+  inicializarFormMedicamento(){
+    this.medicamentoForm = this.formBuilder.group({
+      id:[],
+      nome: ['',
+          [
+            Validators.required,
+            Validators.minLength(1),
+            Validators.maxLength(255)
+          ]
+      ],
+      membro: [{},
+          [
+            Validators.required
+          ]
+      ],
+      dosagem: ['',
+          [
+            Validators.required
+          ]
+      ],
+      unidade: ['',
+          [
+            Validators.required
+          ]
+      ],
+      quantidadeDias: ['',
+          [
+            Validators.required
+          ]
+      ],
+      intervalo: ['',
+          [
+            Validators.required
+          ]
+      ],
+      data: [new Date(),
+          [
+            Validators.required
+          ]
+      ],
+      hora: [new Date(),
+          [
+            Validators.required
+          ]
+      ]
+    });
+  }
+
+  consultarPorId(id:number){
+    this.medicamentoService.consultarPorId(id).subscribe((medicamento:Medicamento) => {
+      this.medicamentoForm.setValue({
+        id: medicamento.id,
+        nome: medicamento.nome,
+        membro: medicamento.membro,
+        dosagem: medicamento.dosagem,
+        unidade: medicamento.unidade,
+        quantidadeDias: medicamento.quantidadeDias,
+        intervalo: medicamento.intervalo,
+        data: new Date(medicamento.data),
+        hora: medicamento.hora
+      });
+  } , err => {
+    this.showMessage({
+      type: 'error',
+      text: err['error']['errors'][0]
+    });
+  });
   }
 
   listarUnidades(){
@@ -129,29 +147,20 @@ export class NovoMedicamentoComponent implements OnInit {
     });
   }
 
-  consultarPorId(id:number){
-    this.medicamentoService.consultarPorId(id).subscribe((medicamento:any) => {
-      console.log(medicamento);
-      this.medicamento = medicamento;
-  } , err => {
-    this.showMessage({
-      type: 'error',
-      text: err['error']['errors'][0]
-    });
-  });
-  }
-
   get f() { 
       return this.medicamentoForm.controls; 
   }
 
   salvar(){
       this.submited = true;
-      this.medicamentoService.salvar(this.medicamento)
+      let medicamento = this.medicamentoForm.getRawValue() as Medicamento;
+      this.medicamentoService.salvar(medicamento)
       .subscribe((medicamento: Medicamento) => {
-        this.medicamentoForm.reset();
+        this.medicamentoForm.reset({
+          data: new Date(),
+          hora: new Date(),
+        });
         this.submited = false;
-        this.medicamento = new Medicamento(0,'',null,new Date(),new Date(),false,0,'',0,0);
         this.showMessage({
           type: 'success',
           text: `Registered ${medicamento.nome} successfully`

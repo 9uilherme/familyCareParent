@@ -3,16 +3,16 @@ import { Membro } from '../membro/membro';
 export class Medicamento{    
 
     constructor(
-        private id: number,
+        public id: number,
         public nome:string,
-        private membro:Membro,
-        private data:Date,
-        private hora:Date,
-        private lembrete:boolean,
-        private dosagem:number,
-        private unidade:string,
-        private intervalo:number,
-        private quantidadeDias:number       
+        public membro:Membro,
+        public data:Date,
+        public hora:Date,
+        public lembrete:boolean,
+        public dosagem:number,
+        public unidade:string,
+        public intervalo:number,
+        public quantidadeDias:number       
         ){}
 	
 }

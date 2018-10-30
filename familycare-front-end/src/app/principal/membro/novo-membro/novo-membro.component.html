@@ -34,7 +34,6 @@
                     class="form-control" 
                     #inputNome 
                     placeholder="Nome"
-                    [(ngModel)]="membro.nome" 
                     autofocus>
                   <div *ngIf="f.nome.errors" class="invalid-feedback">
                       <span *ngIf="f.nome.errors.required && submited" class="help-block">Nome é obrigatório</span>
@@ -51,7 +50,6 @@
                         id="inputPeso"
                         formControlName="peso" 
                         class="form-control" 
-                        [(ngModel)]="membro.peso" 
                         placeholder="Peso">
                         <div *ngIf="f.peso.errors" class="invalid-feedback">
                             <span *ngIf="f.peso.errors.required && submited" class="help-block">Peso é obrigatória</span>
@@ -66,7 +64,6 @@
                         id="inputAltura"
                         formControlName="altura" 
                         class="form-control" 
-                        [(ngModel)]="membro.altura" 
                         placeholder="Altura">
                         <div *ngIf="f.altura.errors" class="invalid-feedback">
                             <span *ngIf="f.altura.errors.required && submited" class="help-block">Altura é obrigatória</span>
@@ -85,7 +82,6 @@
                         </div>
                         <input type="text"
                           bsDatepicker
-                          [(ngModel)]="membro.dataNascimento"
                           [bsConfig]="{dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-dark-blue' }"
                           formControlName="dataNascimento"
                           placement="bottom"
@@ -105,7 +101,6 @@
                         class="form-control select2" 
                         style="width: 100%;"
                         id="inputSexo"
-                        [(ngModel)]="membro.sexo" 
                         formControlName="sexo">
                         <option 
                           *ngFor="let sexo of sexos"
@@ -128,7 +123,6 @@
                       class="form-control select2" 
                       style="width: 100%;"
                       id="inputTipoSanguineo"
-                      [(ngModel)]="membro.tipoSanguineo" 
                       formControlName="tipoSanguineo">
                       <option 
                         *ngFor="let tipo of tiposSanguineos"
@@ -148,7 +142,6 @@
                       class="form-control select2" 
                       style="width: 100%;"
                       id="inputFathorRH"
-                      [(ngModel)]="membro.fatorRH" 
                       formControlName="fatorRH">
                       <option 
                         *ngFor="let fatorRH of fatoresRh"
@@ -165,7 +158,7 @@
             </div>
             <div class="box-footer">
               <button [disabled]="membroForm.invalid || membroForm.pending"  class="btn btn-info pull-right">Salvar</button>
-              <button type="submit" class="btn btn-default">Cancel</button>
+              <button type="reset" (click)="membroForm.reset()" class="btn btn-default">Cancel</button>
             </div>
           </form>
         </div>

@@ -19,7 +19,6 @@ export class NovoMembroComponent implements OnInit {
   sexos:string[] = [];
   tiposSanguineos:string[] = [];
   fatoresRh:string[] = [];
-  membro:Membro;
   @ViewChild('inputNome') inputNome: ElementRef<HTMLInputElement>;
 
   constructor(
@@ -28,55 +27,15 @@ export class NovoMembroComponent implements OnInit {
       private router: Router,
       private route: ActivatedRoute,
       private platformDetectorService: PlatformDetectorService
-    ){
-      this.membro = new Membro(0,null,'',0,0,'','','','');
-    }
+    ){}
 
     ngOnInit(): void {
+      this.inicialiarMembroForm();
       let id:number = this.route.snapshot.params['id'];
+
       if(id > 0){
         this.consultarPorId(id);
       }
-
-      this.membroForm = this.formBuilder.group({
-          nome: ['',
-              [
-                Validators.required,
-                Validators.minLength(1),
-                Validators.maxLength(255)
-              ]
-          ],
-          dataNascimento: ['',
-              [
-                Validators.required
-              ]
-          ],
-          peso: [0.00,
-              [
-                Validators.required
-              ]
-          ],
-          altura: [0.00,
-              [
-                Validators.required
-              ]
-          ],
-          sexo: ['',
-              [
-                Validators.required
-              ]
-          ],
-          tipoSanguineo: ['',
-          [
-            Validators.nullValidator
-          ]
-        ],
-        fatorRH: ['',
-          [
-            Validators.nullValidator
-          ]
-        ]
-      });
 
       if(this.platformDetectorService.isPlatformBrowser){
           this.inputNome.nativeElement.focus();
@@ -85,6 +44,73 @@ export class NovoMembroComponent implements OnInit {
       this.listarSexos();
       this.listarTiposSanguineos();
       this.listarFatoresRh();
+  }
+
+  inicialiarMembroForm(){
+      this.membroForm = this.formBuilder.group({
+        id:[],
+        nome: ['',
+            [
+              Validators.required,
+              Validators.minLength(1),
+              Validators.maxLength(255)
+            ]
+        ],
+        dataNascimento: ['',
+            [
+              Validators.required
+            ]
+        ],
+        peso: ['',
+            [
+              Validators.required
+            ]
+        ],
+        altura: ['',
+            [
+              Validators.required
+            ]
+        ],
+        sexo: ['',
+            [
+              Validators.required
+            ]
+        ],
+        tipoSanguineo: ['',
+        [
+          Validators.nullValidator
+        ]
+      ],
+      fatorRH: ['',
+        [
+          Validators.nullValidator
+        ]
+      ]
+    });
+  }
+
+  consultarPorId(id:number){
+    this.membroService.consultarPorId(id).subscribe((membro:Membro) => {
+      this.preencherMembroForm(membro);
+    } , err => {
+    this.showMessage({
+      type: 'error',
+      text: err['error']['errors'][0]
+    });
+  });
+  }
+
+  preencherMembroForm(membro:Membro){
+    this.membroForm.setValue({
+      id: membro.id,
+      nome: membro.nome,
+      dataNascimento: new Date(membro.dataNascimento),
+      peso: membro.peso,
+      altura: membro.altura,
+      sexo: membro.sexo,
+      tipoSanguineo: membro.tipoSanguineo,
+      fatorRH: membro.fatorRH
+    });
   }
 
   listarSexos(){
@@ -120,28 +146,17 @@ export class NovoMembroComponent implements OnInit {
     });
   }
 
-  consultarPorId(id:number){
-    this.membroService.consultarPorId(id).subscribe((membro:any) => {
-      this.membro = membro;
-  } , err => {
-    this.showMessage({
-      type: 'error',
-      text: err['error']['errors'][0]
-    });
-  });
-  }
-
  get f() { 
     return this.membroForm.controls; 
  }
 
   salvar(){ 
       this.submited = true;
-      this.membroService.salvar(this.membro)
+      let membro = this.membroForm.getRawValue() as Membro;
+      this.membroService.salvar(membro)
       .subscribe((membro: Membro) => {
         this.membroForm.reset();
         this.submited = false;
-        this.membro = new Membro(0,null,'',0,0,'','','','');
         this.showMessage({
           type: 'success',
           text: `Registered ${membro.nome} successfully`

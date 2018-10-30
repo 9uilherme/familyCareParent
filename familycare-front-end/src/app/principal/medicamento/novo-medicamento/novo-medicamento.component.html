@@ -34,7 +34,6 @@
                     class="form-control" 
                     #inputNome 
                     placeholder="Nome"
-                    [(ngModel)]="medicamento.nome" 
                     autofocus>
                   <div *ngIf="f.nome.errors" class="invalid-feedback">
                       <span *ngIf="f.nome.errors.required && submited" class="help-block">Nome é obrigatório</span>
@@ -49,7 +48,6 @@
                   formControlName="membro"
                   class="form-control select2"
                   id="inputMembro"
-                  [(ngModel)]="medicamento.membro" 
                   style="width: 100%;">
                     <option 
                       *ngFor="let membro of membros"
@@ -70,7 +68,6 @@
                         id="inputDasagem"
                         formControlName="dosagem" 
                         class="form-control" 
-                        [(ngModel)]="medicamento.dosagem" 
                         placeholder="Dosagem">
                         <div *ngIf="f.dosagem.errors" class="invalid-feedback">
                             <span *ngIf="f.dosagem.errors.required && submited" class="help-block">Dosagem é obrigatória</span>
@@ -85,7 +82,6 @@
                         formControlName="unidade"
                         class="form-control select2"
                         id="inputUnidade"
-                        [(ngModel)]="medicamento.unidade" 
                         style="width: 100%;">
                           <option 
                             *ngFor="let unidade of unidades"
@@ -102,6 +98,42 @@
 
                   <div class="row">
                     <div class="col-lg-6">
+                      <div [ngClass]="getFormGroupClass(f.data.invalid,f.dosagem.dirty)">
+                        <label for="inputData" class="control-label">Data de início</label>
+                        <div class="input-group">
+                          <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                          </div>
+                          <input type="text"
+                            bsDatepicker
+                            [bsConfig]="{dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-dark-blue' }"
+                            formControlName="data"
+                            placement="bottom"
+                            class="form-control"
+                            id="inputData">
+                        </div>
+                        <div *ngIf="f.data.errors" class="invalid-feedback">
+                          <span *ngIf="f.data.errors.required && submited" class="help-block">Data é obrigatória</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                     <div [ngClass]="getFormGroupClass(f.hora.invalid,f.hora.dirty)">
+                        <label for="inputHora" class="control-label">Hora</label>
+                        <div class="input-group">
+                            <timepicker 
+                            formControlName="hora" 
+                            id="inputHora" [showMeridian]="false" [showSpinners]="false"></timepicker>
+                        </div>
+                        <div *ngIf="f.hora.errors" class="invalid-feedback">
+                          <span *ngIf="f.hora.errors.required && submited" class="help-block">Hora é obrigatória</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-6">
                         <div [ngClass]="getFormGroupClass(f.quantidadeDias.invalid,f.quantidadeDias.dirty)">
                           <label for="inputQuantidadeDias" class="control-label">Número de dias:</label>
                           <input type="text"
@@ -109,7 +141,6 @@
                             id="inputQuantidadeDias"
                             formControlName="quantidadeDias" 
                             class="form-control" 
-                            [(ngModel)]="medicamento.quantidadeDias" 
                             placeholder="Número de dias">
                             <div *ngIf="f.quantidadeDias.errors" class="invalid-feedback">
                                 <span *ngIf="f.quantidadeDias.errors.required && submited" class="help-block">Número de dias é obrigatória</span>
@@ -123,7 +154,6 @@
                           class="form-control select2" 
                           style="width: 100%;"
                           id="inputIntervalo"
-                          [(ngModel)]="medicamento.intervalo" 
                           formControlName="intervalo">
                           <option 
                             *ngFor="let intervalo of intervalos"
@@ -138,48 +168,10 @@
                   </div>
                 </div>
 
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div [ngClass]="getFormGroupClass(f.data.invalid,f.dosagem.dirty)">
-                      <label for="inputData" class="control-label">Data</label>
-                      <div class="input-group">
-                        <div class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
-                        </div>
-                        <input type="text"
-                          bsDatepicker
-                          [(ngModel)]="medicamento.data" 
-                          [bsConfig]="{ containerClass: 'theme-dark-blue' }"
-                          formControlName="data"
-                          placement="bottom"
-                          class="form-control"
-                          id="inputData">
-                      </div>
-                      <div *ngIf="f.data.errors" class="invalid-feedback">
-                        <span *ngIf="f.data.errors.required && submited" class="help-block">Data é obrigatória</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                   <div [ngClass]="getFormGroupClass(f.hora.invalid,f.hora.dirty)">
-                      <label for="inputHora" class="control-label">Hora</label>
-                      <div class="input-group">
-                          <timepicker 
-                          formControlName="hora" 
-                          [(ngModel)]="medicamento.hora"
-                          id="inputHora" [showMeridian]="false" [showSpinners]="false"></timepicker>
-                      </div>
-                      <div *ngIf="f.hora.errors" class="invalid-feedback">
-                        <span *ngIf="f.hora.errors.required && submited" class="help-block">Hora é obrigatória</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
             </div>
             <div class="box-footer">
               <button [disabled]="medicamentoForm.invalid || medicamentoForm.pending"  class="btn btn-info pull-right">Salvar</button>
-              <button class="btn btn-default">Cancel</button>
+              <button type="reset" (click)="medicamentoForm.reset()" class="btn btn-default">Cancel</button>
             </div>
           </form>
           </div>
