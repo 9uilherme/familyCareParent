@@ -1,3 +1,4 @@
+import { NovaConsultaComponent } from './consulta/nova-consulta/nova-consulta.component';
 import { ConsultaService } from './consulta/consulta.service';
 import { ConsultaComponent } from './consulta/consulta.component';
 import { NgModule } from '@angular/core';
@@ -23,7 +24,8 @@ import { CoreModule } from '../core/core.module';
         MenuComponent,
         FooterComponent,
         NovoMedicamentoComponent,
-        ConsultaComponent
+        ConsultaComponent,
+        NovaConsultaComponent
     ],
     imports: [
         HttpClientModule,

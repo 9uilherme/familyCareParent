@@ -2,9 +2,16 @@
   <section class="sidebar">
     <ul class="sidebar-menu tree" data-widget="tree">
       <li class="treeview">
-        <a [routerLink]="['consulta']">
-          <i class="fa fa-calendar"></i><span>Consultas</span>
+        <a href="#">
+          <i class="fa fa-child"></i> <span>Consultas</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
         </a>
+        <ul class="treeview-menu">
+          <li><a [routerLink]="['nova-consulta']"><i class="fa fa-circle-o"></i> Nova Consulta</a></li>
+          <li><a [routerLink]="['consulta']"><i class="fa fa-circle-o"></i> Listagem</a></li>
+        </ul>
       </li>
       <li class="treeview">
         <a href="#">

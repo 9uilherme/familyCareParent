@@ -1,16 +1,18 @@
-import { ConsultaService } from './consulta.service';
-import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { ConsultaComponent } from './consulta.component';
-import { ConsultaFormComponent } from './consulta-form/consulta-form.component';
+import { ConsultaService } from './consulta.service';
+import { NovaConsultaComponent } from './nova-consulta/nova-consulta.component';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ],
   declarations: [
     ConsultaComponent,
-    ConsultaFormComponent
+    NovaConsultaComponent
   ],
   providers: [
     ConsultaService

@@ -1,11 +1,5 @@
 export class Consulta {
 
-    constructor(id: number, descricao: string, endereco: string){
-        this.id = id;
-        this.descricao = descricao;
-        this.endereco = endereco;
-    }
-
     id:number;
     data: Date;
     hora: Date;

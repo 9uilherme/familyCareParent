@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { PrincipalComponent } from './principal.component';
 import { NovoMedicamentoComponent } from './novo-medicamento/novo-medicamento.component';
 import { AuthGuardPricipal } from '../core/auth/auth-principal.guard';
+import { NovaConsultaComponent } from './consulta/nova-consulta/nova-consulta.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,14 @@ const routes: Routes = [
       {
         path: 'consulta', 
         component: ConsultaComponent
+      },
+      {
+        path: 'consulta/:id',
+        component: NovaConsultaComponent
+      },
+      {
+        path: 'nova-consulta',
+        component: NovaConsultaComponent
       }
     ]
   } 

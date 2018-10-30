@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConsultaFormComponent } from './consulta-form.component';
+import { NovaConsultaComponent } from './nova-consulta.component';
 
 describe('ConsultaFormComponent', () => {
-  let component: ConsultaFormComponent;
-  let fixture: ComponentFixture<ConsultaFormComponent>;
+  let component: NovaConsultaComponent;
+  let fixture: ComponentFixture<NovaConsultaComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConsultaFormComponent ]
+      declarations: [ NovaConsultaComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ConsultaFormComponent);
+    fixture = TestBed.createComponent(NovaConsultaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
