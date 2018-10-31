@@ -17,6 +17,14 @@ export class MedicamentoService {
         return this.http.get(`${API_URL}medicamentos`);
     }
 
+    listarComPaginacao(pagina:number,tamanho:number){
+        return this.http.get(`${API_URL}medicamentos/${pagina}/${tamanho}`);
+    }
+
+    listarComFiltro(pagina:number,tamanho:number,nomeFilter:string){
+        return this.http.get(`${API_URL}medicamentos/${pagina}/${tamanho}/${nomeFilter}`);
+    }
+
     delete(id:string){
         return this.http.delete(`${API_URL}medicamentos/${id}`);
     }

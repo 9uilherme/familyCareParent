@@ -21,8 +21,8 @@
         <div class="box-body">
 
             <div class="form-group">
-                <label for="nomeFilter" class="col-sm-2 control-label">Nome</label>
-                <div class="col-sm-10">
+                <label for="nomeFilter" class="col-sm-1 control-label">Nome</label>
+                <div class="col-sm-11">
                   <input type="text" 
                           [(ngModel)]="nomeFilter"
                           name="nomeFilter" 
@@ -34,7 +34,7 @@
 
       <div class="box-footer">
           <button class="btn btn-info pull-left" (click)="limparFiltros()">Limpar Filtros</button>
-          <button style="margin-left: 10px" class="btn btn-info pull-right" (click)="listarTodos()">Filtrar</button>
+          <button style="margin-left: 10px" class="btn btn-info pull-right" (click)="listarComFiltro()">Filtrar</button>
       </div>
 
       <div class="box-body">
@@ -64,6 +64,16 @@
             </td>
           </tr>
         </table>
+      </div>
+      
+      <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin pull-right">
+          <li><a href="" (click)="setPreviousPage($event)">&laquo;</a></li>
+          <li *ngFor="let p of paginas; let i=index">
+              <a [ngClass]="{'pagination-focus':i==pagina}"  href="" (click)="setPage(i,$event)">{{i+1}}</a>
+          </li>
+          <li><a href="" (click)="setNextPage($event)">&raquo;</a></li>
+        </ul>
       </div>
         
       </div>

@@ -17,6 +17,14 @@ export class MembroService {
         return this.http.get(`${API_URL}membros`);
     }
 
+    listarComPaginacao(pagina:number,tamanho:number){
+        return this.http.get(`${API_URL}membros/${pagina}/${tamanho}`);
+    }
+
+    listarComFiltro(pagina:number,tamanho:number,nomeFilter:string){
+        return this.http.get(`${API_URL}membros/${pagina}/${tamanho}/${nomeFilter}`);
+    }
+
     delete(id:string){
         return this.http.delete(`${API_URL}membros/${id}`);
     }

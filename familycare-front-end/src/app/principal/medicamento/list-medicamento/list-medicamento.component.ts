@@ -11,9 +11,9 @@ import { Medicamento } from '../medicamento';
 })
 export class ListMedicamentoComponent implements OnInit {
 
-  page:number=0;
-  count:number=5;
-  pages:Array<number>;
+  pagina:number=0;
+  tamanho:number=5;
+  paginas:Array<number>;
   message : {};
   classCss : {};
   medicamentoList:Medicamento[]= [];
@@ -24,27 +24,40 @@ export class ListMedicamentoComponent implements OnInit {
     private medicamentoService: MedicamentoService,
     private router: Router) {}
 
-  ngOnInit() {
-    this.listarTodos();
-  }
+    ngOnInit() {
+      this.listarComPaginacao(this.pagina,this.tamanho);
+    }
 
-  listarTodos(){
-    this.medicamentoService.listarTodos().subscribe((list:Medicamento[]) => {
-      this.medicamentoList = list;
-    } , err => {
-      this.showMessage({
-        type: 'error',
-        text: err['error']['errors'][0]
+    listarComPaginacao(pagina:number,tamanho:number){
+      this.medicamentoService.listarComPaginacao(pagina,tamanho).subscribe((resposta:any) => {
+        this.medicamentoList = resposta.content;
+        this.paginas = new Array(resposta.totalPages);
+      } , err => {
+        this.showMessage({
+          type: 'error',
+          text: err['error']['errors'][0]
+        });
       });
-    });
-  }
+    }
 
-  limparFiltros(): void {
-    this.page = 0;
-    this.count = 5;
-    this.nomeFilter = null;
-    this.listarTodos();
-  }
+    listarComFiltro(){
+      this.medicamentoService.listarComFiltro(this.pagina,this.tamanho,this.nomeFilter).subscribe((resposta:any) => {
+        this.medicamentoList = resposta.content;
+        this.paginas = new Array(resposta.totalPages);
+      } , err => {
+        this.showMessage({
+          type: 'error',
+          text: err['error']['errors'][0]
+        });
+      });
+    }
+
+    limparFiltros(): void {
+      this.pagina = 0;
+      this.tamanho = 5;
+      this.nomeFilter = null;
+      this.listarComPaginacao(this.pagina,this.tamanho);
+    }
 
   edit(id:string){
     this.router.navigate(['principal/novo-medicamento',id]);
@@ -60,7 +73,7 @@ export class ListMedicamentoComponent implements OnInit {
                   type: 'success',
                   text: `Record deleted`
                 });
-                this.listarTodos();
+                this.listarComPaginacao(this.pagina,this.tamanho);
             } , err => {
               this.showMessage({
                 type: 'error',
@@ -73,24 +86,24 @@ export class ListMedicamentoComponent implements OnInit {
 
   setNextPage(event:any){
     event.preventDefault();
-    if(this.page+1 < this.pages.length){
-      this.page =  this.page +1;
-      this.listarTodos();
+    if(this.pagina+1 < this.paginas.length){
+      this.pagina =  this.pagina +1;
+      this.listarComPaginacao(this.pagina,this.tamanho);
     }
   }
 
   setPreviousPage(event:any){
     event.preventDefault();
-    if(this.page > 0){
-      this.page =  this.page - 1;
-      this.listarTodos();
+    if(this.pagina > 0){
+      this.pagina =  this.pagina - 1;
+      this.listarComPaginacao(this.pagina,this.tamanho);
     }
   }
 
   setPage(i,event:any){
     event.preventDefault();
-    this.page = i;
-    this.listarTodos();
+    this.pagina = i;
+    this.listarComPaginacao(this.pagina,this.tamanho);
   }
 
   private showMessage(message: {type: string, text: string}): void {
