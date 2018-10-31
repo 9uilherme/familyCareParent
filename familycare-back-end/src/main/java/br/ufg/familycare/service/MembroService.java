@@ -1,9 +1,12 @@
 package br.ufg.familycare.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.ufg.familycare.model.Membro;
@@ -23,12 +26,22 @@ public class MembroService {
 		return membroRepository.findById(id);
 	}
 
-	public List<Membro> listarTodos() {
+	public Iterable<Membro> listarTodos() {
 		return membroRepository.findAll();
 	}
 
 	public void deletarPorId(Long id) {
 		membroRepository.deleteById(id);
+	}
+
+	public Page<Membro> listarComPaginacao(int pagina, int tamanho) {
+        Pageable pageable = PageRequest.of(pagina,tamanho,Sort.Direction.ASC,"id");
+		return this.membroRepository.findAll(pageable);
+	}
+	
+	public Page<Membro> listarComFiltro(int pagina, int tamanho,String nomeFilter) {
+        Pageable pageable = PageRequest.of(pagina,tamanho,Sort.Direction.ASC,"id");
+		return this.membroRepository.findByNomeIgnoreCaseContainingOrderById(pageable, nomeFilter);
 	}
 
 }

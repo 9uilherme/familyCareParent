@@ -1,14 +1,13 @@
 package br.ufg.familycare.repository;
 
-import java.util.List;
-
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import br.ufg.familycare.model.Membro;
 
-public interface MembroRepository extends CrudRepository<Membro, Long> {
+public interface MembroRepository extends PagingAndSortingRepository<Membro, Long> {
 
-    @Override
-	List<Membro> findAll();
+	Page<Membro> findByNomeIgnoreCaseContainingOrderById(Pageable pageable, String nomeFilter);
 
 }
