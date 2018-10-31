@@ -20,19 +20,22 @@ import { MedicamentoService } from './medicamento/medicamento.service';
 import { NovoMembroComponent } from './membro/novo-membro/novo-membro.component';
 import { ListMembroComponent } from './membro/list-membro/list-membro.component';
 import { MembroService } from './membro/membro.service';
-import {NgxMaskModule} from 'ngx-mask'
+import {NgxMaskModule} from 'ngx-mask';
+import { PerfilUsuarioComponent } from './usuario/perfil-usuario/perfil-usuario.component'
+import { UsuarioService } from './usuario/usuario.service';
 
 @NgModule({
     declarations:[
-        PrincipalComponent,
         HeaderComponent,
         MenuComponent,
         FooterComponent,
+        PerfilUsuarioComponent,
+        PrincipalComponent,
         NovoMedicamentoComponent,
         ConsultaComponent,
         ListMedicamentoComponent,
         NovoMembroComponent,
-        ListMembroComponent
+        ListMembroComponent,
     ],
     imports: [
         HttpClientModule,
@@ -50,7 +53,8 @@ import {NgxMaskModule} from 'ngx-mask'
     providers:[
         MedicamentoService,
         MembroService,
-        ConsultaService
+        ConsultaService,
+        UsuarioService
     ]
 })
 export class PrincipalModule{}
