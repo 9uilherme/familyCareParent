@@ -3,8 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { tap } from 'rxjs/operators';
 import { UserService } from '../user/user.service';
-
-const API_URL = 'http://localhost:8080/';
+import { API_URL } from '../../ambiente/ambiente';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
