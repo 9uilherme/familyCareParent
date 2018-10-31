@@ -8,6 +8,10 @@ import br.ufg.familycare.model.Membro;
 
 public interface MembroRepository extends PagingAndSortingRepository<Membro, Long> {
 
-	Page<Membro> findByNomeIgnoreCaseContainingOrderById(Pageable pageable, String nomeFilter);
+	Iterable<Membro> findByUsuarioIdOrderById(Long userId);
+
+	Page<Membro> findByUsuarioIdOrderById(Pageable pageable, Long userId);
+
+	Page<Membro> findByNomeIgnoreCaseContainingAndUsuarioIdOrderById(Pageable pageable, String nomeFilter, Long userId);
 
 }

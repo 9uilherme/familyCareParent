@@ -18,8 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufg.familycare.model.Medicamento;
-import br.ufg.familycare.model.Membro;
+import br.ufg.familycare.model.Usuario;
 import br.ufg.familycare.service.MedicamentoService;
+import br.ufg.familycare.service.UsuarioService;
 import io.swagger.annotations.Api;
 
 @RestController
@@ -30,8 +31,13 @@ public class MedicamentoController {
 	@Autowired
 	private MedicamentoService medicamentoService;
 
+	@Autowired
+	private UsuarioService usuarioService;
+
 	@PostMapping()
-	Medicamento cadastrar(@Valid @RequestBody Medicamento medicamento) {
+	Medicamento cadastrar(HttpServletRequest request, @Valid @RequestBody Medicamento medicamento) {
+		Usuario usuario = usuarioService.userFromRequest(request);
+		medicamento.setUsuario(usuario);
 		return medicamentoService.salvar(medicamento);
 	}
 
@@ -46,8 +52,9 @@ public class MedicamentoController {
 	}
 
 	@GetMapping()
-	List<Medicamento> listarTodos() {
-		Iterable<Medicamento> iterator = medicamentoService.listarTodos();
+	List<Medicamento> listarTodos(HttpServletRequest request) {
+		Usuario usuario = usuarioService.userFromRequest(request);
+		Iterable<Medicamento> iterator = medicamentoService.listarTodos(usuario.getId());
 		List<Medicamento> medicamentos = new ArrayList<>();
 		iterator.forEach(medicamentos::add);
 		return medicamentos;
@@ -55,12 +62,14 @@ public class MedicamentoController {
 
 	@GetMapping(value = "/{pagina}/{tamanho}")
 	public  Page<Medicamento> listarCompaginacao(HttpServletRequest request, @PathVariable int pagina, @PathVariable int tamanho) {
-		return medicamentoService.listarComPaginacao(pagina, tamanho);
+		Usuario usuario = usuarioService.userFromRequest(request);
+		return medicamentoService.listarComPaginacao(pagina, tamanho,usuario.getId());
 	}
 
 	@GetMapping(value = "/{pagina}/{tamanho}/{nomeFilter}")
 	public  Page<Medicamento> listarComFiltro(HttpServletRequest request, @PathVariable int pagina, @PathVariable int tamanho,@PathVariable String nomeFilter) {
-		return medicamentoService.listarComFiltro(pagina, tamanho, nomeFilter);
+		Usuario usuario = usuarioService.userFromRequest(request);
+		return medicamentoService.listarComFiltro(pagina, tamanho, nomeFilter,usuario.getId());
 	}
 
 	@DeleteMapping("/{id}")

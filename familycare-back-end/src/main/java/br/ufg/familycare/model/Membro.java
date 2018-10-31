@@ -9,6 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
@@ -37,6 +38,10 @@ public class Membro implements Serializable {
 	@Getter
 	@GeneratedValue
 	private Long id;
+
+	@Getter @Setter
+	@ManyToOne(optional=false)
+	private Usuario usuario;
 
 	@Temporal(TemporalType.DATE)
 	@JsonDeserialize(using = CustomerDateAndTimeDeserialize.class)

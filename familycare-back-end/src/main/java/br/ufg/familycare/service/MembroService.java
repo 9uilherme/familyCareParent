@@ -26,22 +26,21 @@ public class MembroService {
 		return membroRepository.findById(id);
 	}
 
-	public Iterable<Membro> listarTodos() {
-		return membroRepository.findAll();
+	public Iterable<Membro> listarTodos(Long userId) {
+		return membroRepository.findByUsuarioIdOrderById(userId);
+	}
+
+	public Page<Membro> listarComPaginacao(int pagina, int tamanho, Long userId) {
+		Pageable pageable = PageRequest.of(pagina, tamanho, Sort.Direction.ASC, "id");
+		return this.membroRepository.findByUsuarioIdOrderById(pageable, userId);
+	}
+
+	public Page<Membro> listarComFiltro(int pagina, int tamanho, String nomeFilter, Long userId) {
+		Pageable pageable = PageRequest.of(pagina, tamanho, Sort.Direction.ASC, "id");
+		return this.membroRepository.findByNomeIgnoreCaseContainingAndUsuarioIdOrderById(pageable, nomeFilter, userId);
 	}
 
 	public void deletarPorId(Long id) {
 		membroRepository.deleteById(id);
 	}
-
-	public Page<Membro> listarComPaginacao(int pagina, int tamanho) {
-        Pageable pageable = PageRequest.of(pagina,tamanho,Sort.Direction.ASC,"id");
-		return this.membroRepository.findAll(pageable);
-	}
-	
-	public Page<Membro> listarComFiltro(int pagina, int tamanho,String nomeFilter) {
-        Pageable pageable = PageRequest.of(pagina,tamanho,Sort.Direction.ASC,"id");
-		return this.membroRepository.findByNomeIgnoreCaseContainingOrderById(pageable, nomeFilter);
-	}
-
 }

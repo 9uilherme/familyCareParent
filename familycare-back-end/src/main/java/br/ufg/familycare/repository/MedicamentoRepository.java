@@ -8,6 +8,11 @@ import br.ufg.familycare.model.Medicamento;
 
 public interface MedicamentoRepository extends PagingAndSortingRepository<Medicamento, Long> {
 
-	Page<Medicamento> findByNomeIgnoreCaseContainingOrderById(Pageable pageable, String nomeFilter);
+	Iterable<Medicamento> findByUsuarioIdOrderById(Long userId);
+
+	Page<Medicamento> findByUsuarioIdOrderById(Pageable pageable, Long userId);
+
+	Page<Medicamento> findByNomeIgnoreCaseContainingAndUsuarioIdOrderById(Pageable pageable, String nomeFilter,
+			Long userId);
 
 }

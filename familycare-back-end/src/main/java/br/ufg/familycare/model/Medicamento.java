@@ -33,6 +33,10 @@ public class Medicamento implements Serializable {
 	@Getter
 	@GeneratedValue
 	private Long id;
+	
+	@Getter @Setter
+	@ManyToOne(optional=false)
+	private Usuario usuario;
 
 	@Getter @Setter
 	private String nome;

@@ -26,22 +26,23 @@ public class MedicamentoService {
 		return medicamentoRepository.findById(id);
 	}
 
-	public Iterable<Medicamento> listarTodos() {
-		return medicamentoRepository.findAll();
+	public Iterable<Medicamento> listarTodos(Long userId) {
+		return medicamentoRepository.findByUsuarioIdOrderById(userId);
+	}
+
+	public Page<Medicamento> listarComPaginacao(int pagina, int tamanho, Long userId) {
+		Pageable pageable = PageRequest.of(pagina, tamanho, Sort.Direction.ASC, "id");
+		return this.medicamentoRepository.findByUsuarioIdOrderById(pageable, userId);
+	}
+
+	public Page<Medicamento> listarComFiltro(int pagina, int tamanho, String nomeFilter, Long userId) {
+		Pageable pageable = PageRequest.of(pagina, tamanho, Sort.Direction.ASC, "id");
+		return this.medicamentoRepository.findByNomeIgnoreCaseContainingAndUsuarioIdOrderById(pageable, nomeFilter,
+				userId);
 	}
 
 	public void deletarPorId(Long id) {
 		medicamentoRepository.deleteById(id);
-	}
-
-	public Page<Medicamento> listarComPaginacao(int pagina, int tamanho) {
-		Pageable pageable = PageRequest.of(pagina,tamanho,Sort.Direction.ASC,"id");
-		return this.medicamentoRepository.findAll(pageable);
-	}
-
-	public Page<Medicamento> listarComFiltro(int pagina, int tamanho, String nomeFilter) {
-		Pageable pageable = PageRequest.of(pagina,tamanho,Sort.Direction.ASC,"id");
-		return this.medicamentoRepository.findByNomeIgnoreCaseContainingOrderById(pageable, nomeFilter);
 	}
 
 }

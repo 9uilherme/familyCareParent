@@ -1,14 +1,18 @@
 package br.ufg.familycare.repository;
 
-import java.util.List;
-
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import br.ufg.familycare.model.Profissional;
 
-public interface ProfissionalRepository extends CrudRepository<Profissional, Long> {
+public interface ProfissionalRepository extends PagingAndSortingRepository<Profissional, Long> {
 
-	@Override
-	List<Profissional> findAll();
+	Iterable<Profissional> findByUsuarioIdOrderById(Long userId);
+
+	Page<Profissional> findByUsuarioIdOrderById(Pageable pageable, Long userId);
+
+	Page<Profissional> findByNomeIgnoreCaseContainingAndUsuarioIdOrderById(Pageable pageable, String nomeFilter,
+			Long userId);
 
 }

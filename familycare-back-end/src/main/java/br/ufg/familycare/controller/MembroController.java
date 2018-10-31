@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufg.familycare.model.Membro;
+import br.ufg.familycare.model.Usuario;
 import br.ufg.familycare.service.MembroService;
+import br.ufg.familycare.service.UsuarioService;
 import io.swagger.annotations.Api;
 
 @RestController
@@ -29,8 +31,13 @@ public class MembroController {
 	@Autowired
 	private MembroService membroService;
 
+	@Autowired
+	private UsuarioService usuarioService;
+
 	@PostMapping()
-	Membro cadastrar(@Valid @RequestBody Membro membro) {
+	Membro cadastrar(HttpServletRequest request, @Valid @RequestBody Membro membro) {
+		Usuario usuario = usuarioService.userFromRequest(request);
+		membro.setUsuario(usuario);
 		return membroService.salvar(membro);
 	}
 
@@ -45,8 +52,9 @@ public class MembroController {
 	}
 
 	@GetMapping()
-	List<Membro> listarTodos() {
-		Iterable<Membro> iterator = membroService.listarTodos();
+	List<Membro> listarTodos(HttpServletRequest request) {
+		Usuario usuario = usuarioService.userFromRequest(request);
+		Iterable<Membro> iterator = membroService.listarTodos(usuario.getId());
 		List<Membro> membros = new ArrayList<>();
 		iterator.forEach(membros::add);
 		return membros;
@@ -54,16 +62,19 @@ public class MembroController {
 
 	@GetMapping(value = "/{pagina}/{tamanho}")
 	public  Page<Membro> listarCompaginacao(HttpServletRequest request, @PathVariable int pagina, @PathVariable int tamanho) {
-		return membroService.listarComPaginacao(pagina, tamanho);
+		Usuario usuario = usuarioService.userFromRequest(request);
+		return membroService.listarComPaginacao(pagina, tamanho,usuario.getId());
 	}
 
 	@GetMapping(value = "/{pagina}/{tamanho}/{nomeFilter}")
 	public  Page<Membro> listarComFiltro(HttpServletRequest request, @PathVariable int pagina, @PathVariable int tamanho,@PathVariable String nomeFilter) {
-		return membroService.listarComFiltro(pagina, tamanho, nomeFilter);
+		Usuario usuario = usuarioService.userFromRequest(request);
+		return membroService.listarComFiltro(pagina, tamanho, nomeFilter, usuario.getId());
 	}
-	
+
 	@DeleteMapping("/membros/{id}")
 	void deletarPorId(@PathVariable Long id) {
 		membroService.deletarPorId(id);
 	}
+
 }
