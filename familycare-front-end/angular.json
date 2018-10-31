@@ -29,6 +29,7 @@
               "./node_modules/admin-lte/dist/css/skins/_all-skins.min.css",
               "./node_modules/ionicons/dist/css/ionicons.min.css",
               "./node_modules/jvectormap/jquery-jvectormap.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "src/styles.css"
             ],
             "scripts": [

@@ -1,13 +1,18 @@
 package br.ufg.familycare.repository;
 
-import java.util.List;
-
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import br.ufg.familycare.model.Consulta;
 
-public interface ConsultaRepository extends CrudRepository<Consulta, Long> {
+public interface ConsultaRepository extends PagingAndSortingRepository<Consulta, Long> {
 
-	List<Consulta> findAll();
+	Iterable<Consulta> findByUsuarioIdOrderById(Long userId);
+
+	Page<Consulta> findByUsuarioIdOrderById(Pageable pageable, Long userId);
+
+	Page<Consulta> findByDescricaoIgnoreCaseContainingAndUsuarioIdOrderById(Pageable pageable, String descricaoFilter,
+			Long userId);
 
 }

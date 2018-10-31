@@ -1,0 +1,167 @@
+<section class="content-header">
+  <h1>
+    Cadastro de Membros
+    <small>Cadastre aqui os membros da sua família</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a [routerLink]="['']"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a [routerLink]="['../list-membro']">Membros</a></li>
+    <li class="active">Novo Membro</li>
+  </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+  <div class="row">
+  <!-- left column -->
+  <div class="col-md-12">
+  <!-- general form elements -->
+    <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">Formulário</h3>
+        </div>
+        
+        <!-- form start -->
+        <form [formGroup]="membroForm" (submit)="salvar()" role="form">
+            <div [ngClass]="classCss" role="alert" *ngIf="message">
+              <strong>{{ message.text }}</strong>
+            </div>
+            <div class="box-body">
+              <div [ngClass]="getFormGroupClass(f.nome.invalid,f.nome.dirty)">
+                <label for="inputNome" class="control-label">Nome</label>
+                <input type="text"
+                    formControlName="nome" 
+                    class="form-control" 
+                    #inputNome 
+                    placeholder="Nome"
+                    autofocus>
+                  <div *ngIf="f.nome.errors" class="invalid-feedback">
+                      <span *ngIf="f.nome.errors.required && submited" class="help-block">Nome é obrigatório</span>
+                      <span *ngIf="f.nome.errors.minlength" class="help-block">Tamanho mínimo de 1 caracteres</span>
+                      <span *ngIf="f.nome.errors.maxlength" class="help-block">Tamanho Máximo de 255 caracteres</span>
+                    </div>
+                </div>
+               
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div [ngClass]="getFormGroupClass(f.peso.invalid,f.peso.dirty)">
+                      <label for="inputPeso" class="control-label">Peso</label>
+                      <input type="text" [dropSpecialCharacters]="false" mask="0*.00"
+                        id="inputPeso"
+                        formControlName="peso" 
+                        class="form-control" 
+                        placeholder="Peso">
+                        <div *ngIf="f.peso.errors" class="invalid-feedback">
+                            <span *ngIf="f.peso.errors.required && submited" class="help-block">Peso é obrigatória</span>
+                        </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div [ngClass]="getFormGroupClass(f.altura.invalid,f.altura.dirty)">
+                      <label for="inputAltura" class="control-label">Altura</label>
+                      <input type="text" [dropSpecialCharacters]="false" mask="0.00"
+                        id="inputAltura"
+                        formControlName="altura" 
+                        class="form-control" 
+                        placeholder="Altura">
+                        <div *ngIf="f.altura.errors" class="invalid-feedback">
+                            <span *ngIf="f.altura.errors.required && submited" class="help-block">Altura é obrigatória</span>
+                        </div>
+                    </div>
+                  </div>
+                  </div>
+
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div [ngClass]="getFormGroupClass(f.dataNascimento.invalid,f.dataNascimento.dirty)">
+                      <label for="inputDataNascimento" class="control-label">Data de Nascimento</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text"
+                          bsDatepicker
+                          [bsConfig]="{dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-dark-blue' }"
+                          formControlName="dataNascimento"
+                          placement="bottom"
+                          class="form-control"
+                          id="inputDataNascimento">
+                      </div>
+                      <div *ngIf="f.dataNascimento.errors" class="invalid-feedback">
+                        <span *ngIf="f.dataNascimento.errors.required && submited" class="help-block">Data de nascimento é obrigatória</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div [ngClass]="getFormGroupClass(f.sexo.invalid,f.sexo.dirty)">
+                        <label for="inputSexo" class="control-label">Sexo</label>
+                        <select 
+                        class="form-control select2" 
+                        style="width: 100%;"
+                        id="inputSexo"
+                        formControlName="sexo">
+                        <option 
+                          *ngFor="let sexo of sexos"
+                          [value]="sexo">
+                          {{sexo}}
+                        </option>
+                      </select>
+                      <div *ngIf="f.sexo.errors" class="invalid-feedback">
+                          <span *ngIf="f.sexo.errors.required && submited" class="help-block">Sexo é obrigatória</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div [ngClass]="getFormGroupClass(f.tipoSanguineo.invalid,f.tipoSanguineo.dirty)">
+                      <label for="inputTipoSanguineo" class="control-label">Tipo Sanguíneo</label>
+                      <select 
+                      class="form-control select2" 
+                      style="width: 100%;"
+                      id="inputTipoSanguineo"
+                      formControlName="tipoSanguineo">
+                      <option 
+                        *ngFor="let tipo of tiposSanguineos"
+                        [value]="tipo">
+                        {{tipo}}
+                      </option>
+                    </select>
+                    <div *ngIf="f.tipoSanguineo.errors" class="invalid-feedback">
+                        <span *ngIf="f.tipoSanguineo.errors.required && submited" class="help-block">Tipo sanguíneo é obrigatória</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div [ngClass]="getFormGroupClass(f.fatorRH.invalid,f.fatorRH.dirty)">
+                      <label for="inputFathorRH" class="control-label">Fathor RH</label>
+                      <select 
+                      class="form-control select2" 
+                      style="width: 100%;"
+                      id="inputFathorRH"
+                      formControlName="fatorRH">
+                      <option 
+                        *ngFor="let fatorRH of fatoresRh"
+                        [value]="fatorRH">
+                        {{fatorRH == 'RH_POSITIVO' ? '+' : '-'}}
+                      </option>
+                    </select>
+                    <div *ngIf="f.fatorRH.errors" class="invalid-feedback">
+                        <span *ngIf="f.fatorRH.errors.required && submited" class="help-block">O Fator Rh é obrigatória</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="box-footer">
+              <button [disabled]="membroForm.invalid || membroForm.pending"  class="btn btn-info pull-right">Salvar</button>
+              <button type="reset" (click)="membroForm.reset()" class="btn btn-default">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+</section>

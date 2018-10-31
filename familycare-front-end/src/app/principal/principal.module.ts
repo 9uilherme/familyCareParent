@@ -1,21 +1,27 @@
 import { NovaConsultaComponent } from './consulta/nova-consulta/nova-consulta.component';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { BsDatepickerModule, TimepickerModule} from 'ngx-bootstrap';
+
 import { ConsultaService } from './consulta/consulta.service';
 import { ConsultaComponent } from './consulta/consulta.component';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './menu/menu.component';
 import { PrincipalComponent } from './principal.component';
-import { RouterModule } from '@angular/router';
-import { NovoMedicamentoComponent } from './novo-medicamento/novo-medicamento.component';
 import { PrincipalRoutingModule } from './principal.rounting.module';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { VmessageModule } from '../shared/components/vmessage/vmessage.module';
-import { NovoMedicamentoService } from './novo-medicamento/novo-medicamento.service';
-import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from '../core/core.module';
+import { ListMedicamentoComponent } from './medicamento/list-medicamento/list-medicamento.component';
+import { NovoMedicamentoComponent } from './medicamento/novo-medicamento/novo-medicamento.component';
+import { MedicamentoService } from './medicamento/medicamento.service';
+import { NovoMembroComponent } from './membro/novo-membro/novo-membro.component';
+import { ListMembroComponent } from './membro/list-membro/list-membro.component';
+import { MembroService } from './membro/membro.service';
+import {NgxMaskModule} from 'ngx-mask'
 
 @NgModule({
     declarations:[
@@ -25,6 +31,9 @@ import { CoreModule } from '../core/core.module';
         FooterComponent,
         NovoMedicamentoComponent,
         ConsultaComponent,
+        ListMedicamentoComponent,
+        NovoMembroComponent,
+        ListMembroComponent
         NovaConsultaComponent
     ],
     imports: [
@@ -36,9 +45,13 @@ import { CoreModule } from '../core/core.module';
         FormsModule, 
         VmessageModule,
         CoreModule,
+        BsDatepickerModule.forRoot(),
+        TimepickerModule.forRoot(),
+        NgxMaskModule.forRoot()
     ],
     providers:[
-        NovoMedicamentoService,
+        MedicamentoService,
+        MembroService,
         ConsultaService
     ]
 })

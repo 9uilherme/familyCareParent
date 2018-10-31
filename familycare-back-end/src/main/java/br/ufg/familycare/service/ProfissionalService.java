@@ -1,9 +1,12 @@
 package br.ufg.familycare.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.ufg.familycare.model.Profissional;
@@ -23,8 +26,19 @@ public class ProfissionalService {
 		return profissionalRepository.findById(id);
 	}
 
-	public List<Profissional> listarTodos() {
-		return profissionalRepository.findAll();
+	public Iterable<Profissional> listarTodos(Long userId) {
+		return profissionalRepository.findByUsuarioIdOrderById(userId);
+	}
+
+	public Page<Profissional> listarComPaginacao(int pagina, int tamanho, Long userId) {
+		Pageable pageable = PageRequest.of(pagina, tamanho, Sort.Direction.ASC, "id");
+		return this.profissionalRepository.findByUsuarioIdOrderById(pageable, userId);
+	}
+
+	public Page<Profissional> listarComFiltro(int pagina, int tamanho, String nomeFilter, Long userId) {
+		Pageable pageable = PageRequest.of(pagina, tamanho, Sort.Direction.ASC, "id");
+		return this.profissionalRepository.findByNomeIgnoreCaseContainingAndUsuarioIdOrderById(pageable, nomeFilter,
+				userId);
 	}
 
 	public void deletarPorId(Long id) {

@@ -1,17 +1,19 @@
 package br.ufg.familycare.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum EnumIntervalo {
 
 	A(1),
 	B(2),
 	C(3),
 	D(4),
-	E(5),
-	F(6),
-	G(8),
-	H(12),
-	I(24);
+	E(6),
+	F(8),
+	G(12),
+	H(24);
 
+	@JsonValue
 	private int intervalo;
 
 	EnumIntervalo(int intervalo) {
@@ -21,5 +23,4 @@ public enum EnumIntervalo {
 	public int getIntervalo() {
 		return intervalo;
 	}
-
 }
