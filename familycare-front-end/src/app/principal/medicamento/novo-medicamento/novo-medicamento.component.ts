@@ -100,6 +100,7 @@ export class NovoMedicamentoComponent implements OnInit {
 
   consultarPorId(id:number){
     this.medicamentoService.consultarPorId(id).subscribe((medicamento:Medicamento) => {
+      console.log(medicamento)
       this.medicamentoForm.setValue({
         id: medicamento.id,
         nome: medicamento.nome,
@@ -109,7 +110,7 @@ export class NovoMedicamentoComponent implements OnInit {
         quantidadeDias: medicamento.quantidadeDias,
         intervalo: medicamento.intervalo,
         data: new Date(medicamento.data),
-        hora: medicamento.hora,
+        hora: this.montarData(medicamento.hora),
         lembrete: medicamento.lembrete
       });
   } , err => {
@@ -118,6 +119,15 @@ export class NovoMedicamentoComponent implements OnInit {
       text: err['error']['errors'][0]
     });
   });
+  }
+
+  montarData(hora:any):Date {
+    let horas = hora.split(":");
+    let data:Date = new Date();
+    data.setHours(horas[0]);
+    data.setMinutes(horas[1]);
+    data.setSeconds(horas[2]);
+    return data;
   }
 
   compare(m1:Membro, m2:Membro) {

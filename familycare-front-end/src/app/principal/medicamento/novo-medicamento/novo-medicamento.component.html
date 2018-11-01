@@ -135,7 +135,7 @@
                         <div class="input-group">
                             <timepicker 
                             formControlName="hora" 
-                            id="inputHora" [showMeridian]="false" [showSpinners]="false"></timepicker>
+                            id="inputHora" [showMeridian]="false" [showSeconds]="true" [showSpinners]="false"></timepicker>
                         </div>
                         <div *ngIf="f.hora.errors" class="invalid-feedback">
                           <span *ngIf="f.hora.errors.required && submited" class="help-block">Hora é obrigatória</span>
