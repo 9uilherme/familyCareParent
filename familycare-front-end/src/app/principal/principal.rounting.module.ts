@@ -8,6 +8,7 @@ import { NovoMedicamentoComponent } from './medicamento/novo-medicamento/novo-me
 import { ListMedicamentoComponent } from './medicamento/list-medicamento/list-medicamento.component';
 import { NovoMembroComponent } from './membro/novo-membro/novo-membro.component';
 import { ListMembroComponent } from './membro/list-membro/list-membro.component';
+import { PerfilUsuarioComponent } from './usuario/perfil-usuario/perfil-usuario.component';
 
 const routes: Routes = [
   {
@@ -51,6 +52,11 @@ const routes: Routes = [
         path: 'nova-consulta',
         component: NovaConsultaComponent
       }
+      },
+      {
+        path: 'perfil-usuario', 
+        component: PerfilUsuarioComponent
+      },
     ]
   } 
   ];

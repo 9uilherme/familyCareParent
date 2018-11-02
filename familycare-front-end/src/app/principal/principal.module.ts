@@ -21,14 +21,17 @@ import { NovoMembroComponent } from './membro/novo-membro/novo-membro.component'
 import { MenuComponent } from './menu/menu.component';
 import { PrincipalComponent } from './principal.component';
 import { PrincipalRoutingModule } from './principal.rounting.module';
+import { PerfilUsuarioComponent } from './usuario/perfil-usuario/perfil-usuario.component'
+import { UsuarioService } from './usuario/usuario.service';
 
 
 @NgModule({
     declarations:[
-        PrincipalComponent,
         HeaderComponent,
         MenuComponent,
         FooterComponent,
+        PerfilUsuarioComponent,
+        PrincipalComponent,
         NovoMedicamentoComponent,
         ConsultaComponent,
         ListMedicamentoComponent,
@@ -52,7 +55,8 @@ import { PrincipalRoutingModule } from './principal.rounting.module';
     providers:[
         MedicamentoService,
         MembroService,
-        ConsultaService
+        ConsultaService,
+        UsuarioService
     ]
 })
 export class PrincipalModule{}

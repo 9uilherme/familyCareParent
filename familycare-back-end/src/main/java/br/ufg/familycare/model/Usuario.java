@@ -37,7 +37,7 @@ public class Usuario {
 	private String email;
 
 	@Size(min=6,message="{password.size}")
-	@JsonProperty(access = Access.WRITE_ONLY)
+	@JsonProperty(access = Access.READ_WRITE)
 	private String password;
 
 	@NotNull(message="{perfil.valido}")
