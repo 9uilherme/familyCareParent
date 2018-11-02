@@ -1,10 +1,10 @@
+export class Membro {
+    nome: string;
+}
+export class Profissional {
+    nome: string;
+}
 export class Consulta {
-
-    constructor(id: number, descricao: string, endereco: string){
-        this.id = id;
-        this.descricao = descricao;
-        this.endereco = endereco;
-    }
 
     id:number;
     data: Date;
@@ -13,8 +13,8 @@ export class Consulta {
     endereco: string;
     lembrar: boolean;
     // Criar entidade de membro
-    membro: any;
+    membro: Membro;
     // Criat entidade de profissional
-    profissional: any;
+    profissional: Profissional;
 
 }

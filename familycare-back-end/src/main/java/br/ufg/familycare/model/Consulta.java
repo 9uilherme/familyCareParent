@@ -10,6 +10,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lombok.Data;
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Data
@@ -19,21 +20,24 @@ public class Consulta {
 	@GeneratedValue
 	private Long id;
 
+	@ManyToOne(optional=false)
+	private Usuario usuario;
+
 	@Temporal(TemporalType.DATE)
 	private Date data;
-	
+
 	@Temporal(TemporalType.TIME)
 	private Date hora;
 
 	private String descricao;
-	
+
 	private String endereco;
-	
+
 	private Boolean lembrar;
 
 	@ManyToOne
 	private Membro membro;
-	
+
 	@ManyToOne
 	private Profissional profissional;
 

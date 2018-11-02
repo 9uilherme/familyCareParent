@@ -1,14 +1,18 @@
 package br.ufg.familycare.repository;
 
-import java.util.List;
-
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import br.ufg.familycare.model.Medicamento;
 
-public interface MedicamentoRepository extends CrudRepository<Medicamento, Long> {
+public interface MedicamentoRepository extends PagingAndSortingRepository<Medicamento, Long> {
 
-	@Override
-	List<Medicamento> findAll();
+	Iterable<Medicamento> findByUsuarioIdOrderById(Long userId);
+
+	Page<Medicamento> findByUsuarioIdOrderById(Pageable pageable, Long userId);
+
+	Page<Medicamento> findByNomeIgnoreCaseContainingAndUsuarioIdOrderById(Pageable pageable, String nomeFilter,
+			Long userId);
 
 }
