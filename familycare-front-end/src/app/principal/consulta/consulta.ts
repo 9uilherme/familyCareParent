@@ -1,11 +1,9 @@
 export class Membro {
     nome: string;
 }
-
 export class Profissional {
     nome: string;
 }
-
 export class Consulta {
 
     id:number;

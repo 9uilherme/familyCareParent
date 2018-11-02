@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ConsultaService } from './../consulta.service';
 import { Consulta, Membro, Profissional } from '../consulta';
+import { ConsultaService } from './../consulta.service';
 
 @Component({
   selector: 'app-consulta-form',
@@ -21,7 +21,6 @@ export class NovaConsultaComponent implements OnInit {
     private formBuilder: FormBuilder,
     private consultaService: ConsultaService
   ) {
-
     this.consulta = new Consulta();
     this.consulta.membro = new Membro();
     this.consulta.profissional = new Profissional();
@@ -33,14 +32,14 @@ export class NovaConsultaComponent implements OnInit {
       this.consultarPorId(id);
     }
     this.consultaForm = this.formBuilder.group({
-      filho: ['',
+      membro: ['',
         [
           Validators.required,
           Validators.minLength(1),
           Validators.maxLength(255)
         ]
       ],
-      medico: ['',
+      profissional: ['',
         [
           Validators.required,
           Validators.minLength(1),

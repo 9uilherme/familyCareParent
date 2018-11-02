@@ -27,34 +27,34 @@
               <strong>{{ message.text }}</strong>
             </div>
             <div class="box-body">
-              <div [ngClass]="getFormGroupClass(f.filho.invalid,f.filho.dirty)">
-                <label for="inputNome" class="control-label">Filho</label>
+              <div [ngClass]="getFormGroupClass(f.membro.invalid,f.membro.dirty)">
+                <label for="inputNome" class="control-label">Membro</label>
                 <input type="text"
-                    formControlName="filho" 
+                    formControlName="membro" 
                     class="form-control" 
                     #inputNome 
                     placeholder="Nome do Filho(a)" 
                     [(ngModel)]="consulta.membro.nome"
                     autofocus>
-                  <div *ngIf="f.filho.errors" class="invalid-feedback">
-                      <span *ngIf="f.filho.errors.required && submitted" class="help-block">Nome do Filho é obrigatório</span>
-                      <span *ngIf="f.filho.errors.minlength" class="help-block">Tamanho mínimo de 1 caracteres</span>
-                      <span *ngIf="f.filho.errors.maxlength" class="help-block">Tamanho Máximo de 255 caracteres</span>
+                  <div *ngIf="f.membro.errors" class="invalid-feedback">
+                      <span *ngIf="f.membro.errors.required && submitted" class="help-block">Nome do Filho é obrigatório</span>
+                      <span *ngIf="f.membro.errors.minlength" class="help-block">Tamanho mínimo de 1 caracteres</span>
+                      <span *ngIf="f.membro.errors.maxlength" class="help-block">Tamanho Máximo de 255 caracteres</span>
                     </div>
                 </div>
-                <div [ngClass]="getFormGroupClass(f.medico.invalid,f.medico.dirty)">
-                  <label for="inputNome" class="control-label">Médico</label>
+                <div [ngClass]="getFormGroupClass(f.profissional.invalid,f.profissional.dirty)">
+                  <label for="inputNome" class="control-label">Profissional da saúde</label>
                   <input type="text"
-                      formControlName="medico" 
+                      formControlName="profissional" 
                       class="form-control" 
-                      #inputMedico 
+                      #inputProfissional 
                       placeholder="Nome do Médico(a)" 
                       [(ngModel)]="consulta.profissional.nome"
                       autofocus>
-                    <div *ngIf="f.medico.errors" class="invalid-feedback">
-                        <span *ngIf="f.medico.errors.required && submitted" class="help-block">Nome do Médico é obrigatório</span>
-                        <span *ngIf="f.medico.errors.minlength" class="help-block">Tamanho mínimo de 1 caracteres</span>
-                        <span *ngIf="f.medico.errors.maxlength" class="help-block">Tamanho Máximo de 255 caracteres</span>
+                    <div *ngIf="f.profissional.errors" class="invalid-feedback">
+                        <span *ngIf="f.profissional.errors.required && submitted" class="help-block">Nome do Médico é obrigatório</span>
+                        <span *ngIf="f.profissional.errors.minlength" class="help-block">Tamanho mínimo de 1 caracteres</span>
+                        <span *ngIf="f.profissional.errors.maxlength" class="help-block">Tamanho Máximo de 255 caracteres</span>
                       </div>
                   </div>
                 <div class="row">
