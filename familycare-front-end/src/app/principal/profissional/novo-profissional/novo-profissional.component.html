@@ -1,0 +1,125 @@
+<section class="content-header">
+  <h1>
+    Cadastro de Profissionais
+    <small>Cadastre aqui os profissionais</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a [routerLink]="['']"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a [routerLink]="['../list-profissional']">Profissionais</a></li>
+    <li class="active">Novo Profissional</li>
+  </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+  <div class="row">
+  <!-- left column -->
+  <div class="col-md-12">
+  <!-- general form elements -->
+    <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">Formulário</h3>
+        </div>
+        
+        <!-- form start -->
+        <form [formGroup]="profissionalForm" (submit)="salvar()" role="form">
+          <div [ngClass]="classCss" role="alert" *ngIf="message">
+            <strong>{{ message.text }}</strong>
+          </div>
+          <div class="box-body">
+              
+            <div [ngClass]="getFormGroupClass(f.nome.invalid,f.nome.dirty)">
+              <label for="inputNome" class="control-label">Nome</label>
+              <input 
+                id="inputNome"
+                type="text"
+                formControlName="nome" 
+                #inputNome 
+                class="form-control" 
+                placeholder="Nome"
+                autofocus>
+              <div *ngIf="f.nome.errors" class="invalid-feedback">
+                <span *ngIf="f.nome.errors.required && submited" class="help-block">Nome é obrigatório</span>
+                <span *ngIf="f.nome.errors.minlength" class="help-block">Tamanho mínimo de 1 caracteres</span>
+                <span *ngIf="f.nome.errors.maxlength" class="help-block">Tamanho Máximo de 255 caracteres</span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6">
+                <div [ngClass]="getFormGroupClass(f.telefoneCelular.invalid,f.telefoneCelular.dirty)">
+                  <label for="inputTelefoneCelular" class="control-label">Telefone celular</label>
+                  <input type="text" [dropSpecialCharacters]="false" mask="(00) 00000-0000"
+                    id="inputTelefoneCelular"
+                    formControlName="telefoneCelular" 
+                    class="form-control" 
+                    placeholder="Telefone celular">
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div [ngClass]="getFormGroupClass(f.telefoneFixo.invalid,f.telefoneFixo.dirty)">
+                  <label for="inputTelefoneFixo" class="control-label">Telefone fixo</label>
+                  <input type="text" [dropSpecialCharacters]="false" mask="(00) 0000-0000"
+                    id="inputTelefoneFixo"
+                    formControlName="telefoneFixo" 
+                    class="form-control" 
+                    placeholder="Telefone fixo">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6">
+                <div [ngClass]="getFormGroupClass(f.email.invalid,f.email.dirty)">
+                  <label for="inputEmail" class="control-label">E-mail</label>
+                  <input 
+                    type="text"
+                    id="inputEmail"
+                    formControlName="email" 
+                    class="form-control"
+                    placeholder="E-mail">
+                  <div *ngIf="f.email.errors" class="invalid-feedback">
+                    <span *ngIf="f.email.errors.email" class="help-block">E-mail inválido</span>
+                    <span *ngIf="f.email.errors.maxlength" class="help-block">Tamanho Máximo de 255 caracteres</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div [ngClass]="getFormGroupClass(f.especialidade.invalid,f.especialidade.dirty)">
+                  <label for="inputEspecialidade" class="control-label">Especialidade</label>
+                  <input 
+                    type="text"
+                    id="inputEspecialidade"
+                    formControlName="especialidade" 
+                    class="form-control"
+                    placeholder="Especialidade">
+                  <div *ngIf="f.especialidade.errors" class="invalid-feedback">
+                    <span *ngIf="f.especialidade.errors.maxlength" class="help-block">Tamanho Máximo de 255 caracteres</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div [ngClass]="getFormGroupClass(f.endereco.invalid,f.endereco.dirty)">
+              <label for="inputEndereco" class="control-label">Endereço</label>
+              <input 
+                type="text"
+                id="inputEndereco"
+                formControlName="endereco" 
+                class="form-control"
+                placeholder="Endereço">
+              <div *ngIf="f.endereco.errors" class="invalid-feedback">
+                <span *ngIf="f.endereco.errors.maxlength" class="help-block">Tamanho Máximo de 255 caracteres</span>
+              </div>
+            </div>
+          </div>
+          <div class="box-footer">
+            <button [disabled]="profissionalForm.invalid || profissionalForm.pending"  class="btn btn-info pull-right">Salvar</button>
+            <button type="reset" (click)="profissionalForm.reset()" class="btn btn-default">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

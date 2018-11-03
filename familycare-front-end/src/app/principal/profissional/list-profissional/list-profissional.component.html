@@ -1,0 +1,83 @@
+<section class="content-header">
+  <h1>
+    Listagem de Profissionais
+    <small>Consulte aqui seus profissionais</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a [routerLink]="['']"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a [routerLink]="['../list-profissional']">Profissionais</a></li>
+    <li class="active">Listagem de Profissionais</li>
+  </ol>
+</section>
+
+<section class="content">
+  <div class="row">
+    <div class="col-md-12">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">Filtros</h3>
+        </div>
+
+        <div class="box-body">
+
+          <div class="form-group">
+            <label for="nomeFilter" class="col-sm-1 control-label">Nome</label>
+            <div class="col-sm-11">
+              <input 
+                type="text" 
+                [(ngModel)]="nomeFilter"
+                name="nomeFilter" 
+                class="form-control" 
+                id="nomeFilter">
+            </div>
+          </div>
+      </div>   
+
+      <div class="box-footer">
+          <button class="btn btn-info pull-left" (click)="limparFiltros()">Limpar Filtros</button>
+          <button style="margin-left: 10px" class="btn btn-info pull-right" (click)="listarComFiltro()">Filtrar</button>
+      </div>
+
+      <div class="box-body">
+        <table class="table table-bordered">
+          <tr>
+            <th>Nome</th>
+            <th class="hidden-xs hidden-sm">Telefone celular</th>
+            <th class="hidden-xs hidden-sm">Telefone fixo</th>
+            <th class="hidden-xs hidden-sm">E-mail</th>
+            <th class="hidden-xs hidden-sm">Especialidade</th>
+            <th class="hidden-xs hidden-sm">Endereço</th>
+            <th style="width: 10px">&nbsp;</th>
+            <th style="width: 10px">&nbsp;</th>
+          </tr>
+          <tr *ngFor="let profissional of profissionalList">
+            <td>{{profissional.nome}}</td>
+            <td class="hidden-xs hidden-sm">{{profissional.telefoneCelular}}</td>
+            <td class="hidden-xs hidden-sm">{{profissional.telefoneFixo}}</td>
+            <td class="hidden-xs hidden-sm">{{profissional.email}}</td>
+            <td class="hidden-xs hidden-sm">{{profissional.especialidade}}</td>
+            <td class="hidden-xs hidden-sm">{{profissional.endereco}}</td>
+            <td>
+                <button class="btn btn-primary" (click)="edit(profissional.id)">Editar</button>
+            </td>
+            <td>
+                <button class="btn btn-danger" (click)="delete(profissional.id)">Deletar</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+      
+      <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin pull-right">
+          <li><a href="" (click)="setPreviousPage($event)">&laquo;</a></li>
+          <li *ngFor="let p of paginas; let i=index">
+              <a [ngClass]="{'pagination-focus':i==pagina}"  href="" (click)="setPage(i,$event)">{{i+1}}</a>
+          </li>
+          <li><a href="" (click)="setNextPage($event)">&raquo;</a></li>
+        </ul>
+      </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
