@@ -57,7 +57,7 @@ public class ConsultaController {
 		return consultaService.listarComPaginacao(pagina, tamanho,usuario.getId());
 	}
 
-	@GetMapping(value = "/{pagina}/{tamanho}/{nomeFilter}")
+	@GetMapping(value = "/{pagina}/{tamanho}/{descricaoFilter}")
 	public  Page<Consulta> listarComFiltro(HttpServletRequest request, @PathVariable int pagina, @PathVariable int tamanho,@PathVariable String descricaoFilter) {
 		Usuario usuario = usuarioService.userFromRequest(request);
 		return consultaService.listarComFiltro(pagina, tamanho, descricaoFilter, usuario.getId());

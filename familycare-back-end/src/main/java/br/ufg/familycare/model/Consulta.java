@@ -9,99 +9,64 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import lombok.Data;
-import org.hibernate.annotations.Cascade;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import br.ufg.familycare.config.CustomerDateAndTimeDeserialize;
+import br.ufg.familycare.config.CustomerTimeDeserialize;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
+@NoArgsConstructor
 public class Consulta {
 
-	@Id 
+	@Id
 	@GeneratedValue
+	@Getter
 	private Long id;
 
-	@ManyToOne(optional=false)
+	@Getter
+	@Setter
+	@ManyToOne(optional = false)
 	private Usuario usuario;
 
+	@Setter
 	@Temporal(TemporalType.DATE)
+	@JsonDeserialize(using = CustomerDateAndTimeDeserialize.class)
 	private Date data;
 
+	@Getter
+	@Setter
 	@Temporal(TemporalType.TIME)
+	@JsonDeserialize(using = CustomerTimeDeserialize.class)
 	private Date hora;
 
+	@Getter
+	@Setter
+	private boolean lembrete;
+
+	@Getter
+	@Setter
 	private String descricao;
 
+	@Getter
+	@Setter
 	private String endereco;
 
-	private Boolean lembrar;
-
 	@ManyToOne
+	@Getter
+	@Setter
 	private Membro membro;
 
 	@ManyToOne
+	@Getter
+	@Setter
 	private Profissional profissional;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ", timezone = "GMT-3")
 	public Date getData() {
 		return data;
-	}
-
-	public void setData(Date data) {
-		this.data = data;
-	}
-
-	public Date getHora() {
-		return hora;
-	}
-
-	public void setHora(Date hora) {
-		this.hora = hora;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public String getEndereço() {
-		return endereco;
-	}
-
-	public void setEndereço(String endereco) {
-		this.endereco = endereco;
-	}
-
-	public Boolean getLembrar() {
-		return lembrar;
-	}
-
-	public void setLembrar(Boolean lembrar) {
-		this.lembrar = lembrar;
-	}
-
-	public Membro getMembro() {
-		return membro;
-	}
-
-	public void setMembro(Membro membro) {
-		this.membro = membro;
-	}
-
-	public Profissional getProfissional() {
-		return profissional;
-	}
-
-	public void setProfissional(Profissional profissional) {
-		this.profissional = profissional;
 	}
 }

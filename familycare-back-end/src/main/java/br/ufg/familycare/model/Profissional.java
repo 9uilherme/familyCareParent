@@ -14,24 +14,24 @@ import lombok.Data;
 @Data
 public class Profissional {
 
-	@Id 
+	@Id
 	@GeneratedValue
 	private Long id;
 
-	@ManyToOne(optional=false)
+	@ManyToOne(optional = false)
 	private Usuario usuario;
 
-	@NotBlank(message="{nome.notblank}")
-	@Size(min=1,max=255, message="{nome.size}")
+	@NotBlank(message = "{nome.notblank}")
+	@Size(min = 1, max = 255, message = "{nome.size}")
 	private String nome;
 
-	@Email(message="{email.valido}")
-	@Size(min=0,max=255, message="{email.size}")
+	@Email(message = "{email.valido}")
+	@Size(min = 0, max = 255, message = "{email.size}")
 	private String email;
 
 	private String especialidade;
 
-	private String teleCelular;
+	private String telefoneCelular;
 
 	private String telefoneFixo;
 
