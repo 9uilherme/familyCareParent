@@ -1,11 +1,11 @@
 <section class="content-header">
   <h1>
     Listagem de Consultas
-    <small>Consulte aqui suas consultas</small>
+    <small>Veja aqui todos as suas consultas cadastradas</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a ><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a >Consultas</a></li>
+    <li><a [routerLink]="['']"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a [routerLink]="['../list-consulta']">Consultas</a></li>
     <li class="active">Listagem de Consultas</li>
   </ol>
 </section>
@@ -19,14 +19,18 @@
         </div>
 
         <div class="box-body">
-          <form>
-            <div class="form-group">
-                <label for="nomeFilter" class="col-sm-2 control-label">Pesquise</label>
-                <div class="col-sm-10">
-                  <input type="text" [(ngModel)]="componentProperty"  />
-                </div>
+
+          <div class="form-group">
+            <label for="descricaoFilter" class="col-sm-2 control-label">Descrição da consulta</label>
+            <div class="col-sm-10">
+              <input 
+              type="text" 
+                [(ngModel)]="descricaoFilter"
+                name="descricaoFilter" 
+                class="form-control" 
+                id="descricaoFilter">
             </div>
-          </form>
+          </div>
       </div>   
 
       <div class="box-footer">
@@ -37,19 +41,27 @@
       <div class="box-body">
         <table class="table table-bordered">
           <tr>
-            <th>Descrição</th>
+            <th>Descrição da consulta</th>
+            <th class="hidden-xs hidden-sm" >Membro</th>
+            <th class="hidden-xs hidden-sm">Data</th>
+            <th class="hidden-xs hidden-sm">Hora</th>
+            <th class="hidden-xs hidden-sm">Profissional</th>
             <th class="hidden-xs hidden-sm">Endereço</th>
             <th style="width: 10px">&nbsp;</th>
             <th style="width: 10px">&nbsp;</th>
           </tr>
-          <tr *ngFor="let item of consultas">
-            <td>{{item.descricao}}</td>
-            <td class="hidden-xs hidden-sm">{{item.endereco}}</td>
+          <tr *ngFor="let consulta of consultaList">
+            <td>{{consulta.descricao}}</td>
+            <td class="hidden-xs hidden-sm">{{consulta.membro.nome}}</td>
+            <td class="hidden-xs hidden-sm">{{consulta.data | date: 'dd/MM/yyyy' }}</td>
+            <td class="hidden-xs hidden-sm">{{consulta.hora}}</td>
+            <td class="hidden-xs hidden-sm">{{consulta.profissional.nome}}</td>
+            <td class="hidden-xs hidden-sm">{{consulta.endereco}}</td>
             <td>
-                <button class="btn btn-primary" (click)="edit(item.id)">Editar</button>
+                <button class="btn btn-primary" (click)="edit(consulta.id)">Editar</button>
             </td>
             <td>
-                <button class="btn btn-danger" (click)="delete(item.id)">Deletar</button>
+                <button class="btn btn-danger" (click)="delete(consulta.id)">Deletar</button>
             </td>
           </tr>
         </table>
