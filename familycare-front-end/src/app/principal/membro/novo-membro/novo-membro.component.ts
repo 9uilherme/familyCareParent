@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
 import { Membro } from '../membro';
 import { MembroService } from '../membro.service';
 import { PlatformDetectorService } from 'src/app/core/platform-detector/platform-detector.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-novo-membro',
   templateUrl: './novo-membro.component.html',
   styleUrls: ['./novo-membro.component.css']
 })
@@ -24,7 +23,6 @@ export class NovoMembroComponent implements OnInit {
   constructor(
       private formBuilder: FormBuilder,
       private membroService: MembroService,
-      private router: Router,
       private route: ActivatedRoute,
       private platformDetectorService: PlatformDetectorService
     ){}

@@ -5,7 +5,6 @@ import { DialogService } from 'src/app/shared/services/dialog.service';
 import { MembroService } from '../membro.service';
 
 @Component({
-  selector: 'app-list-membro',
   templateUrl: './list-membro.component.html',
   styleUrls: ['./list-membro.component.css']
 })

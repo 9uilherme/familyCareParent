@@ -1,10 +1,11 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { PlatformDetectorService } from 'src/app/core/platform-detector/platform-detector.service';
 import { Medicamento } from '../medicamento';
 import { MedicamentoService } from '../medicamento.service';
 import { Membro } from '../../membro/membro';
+import { MembroService } from '../../membro/membro.service';
 
 @Component({
   templateUrl: './novo-medicamento.component.html'
@@ -23,7 +24,7 @@ export class NovoMedicamentoComponent implements OnInit {
   constructor(
       private formBuilder: FormBuilder,
       private medicamentoService: MedicamentoService,
-      private router: Router,
+      private membroService: MembroService,
       private route: ActivatedRoute,
       private platformDetectorService: PlatformDetectorService
     ){}
@@ -48,53 +49,15 @@ export class NovoMedicamentoComponent implements OnInit {
   inicializarFormMedicamento(){
     this.medicamentoForm = this.formBuilder.group({
       id:[],
-      nome: ['',
-          [
-            Validators.required,
-            Validators.minLength(1),
-            Validators.maxLength(255)
-          ]
-      ],
-      membro: ['',
-          [
-            Validators.required
-          ]
-      ],
-      dosagem: ['',
-          [
-            Validators.required
-          ]
-      ],
-      unidade: ['',
-          [
-            Validators.required
-          ]
-      ],
-      quantidadeDias: ['',
-          [
-            Validators.required
-          ]
-      ],
-      intervalo: ['',
-          [
-            Validators.required
-          ]
-      ],
-      data: [new Date(),
-          [
-            Validators.required
-          ]
-      ],
-      hora: [new Date(),
-          [
-            Validators.required
-          ]
-      ],
-      lembrete:[true,
-        [
-          Validators.required
-        ]
-      ]
+      nome: ['', [ Validators.required, Validators.minLength(1),Validators.maxLength(255) ]],
+      membro: ['', [ Validators.required ]],
+      dosagem: ['', [ Validators.required ]],
+      unidade: ['', [ Validators.required ]],
+      quantidadeDias: ['', [ Validators.required ]],
+      intervalo: ['', [ Validators.required ]],
+      data: [new Date(), [ Validators.required ]],
+      hora: [new Date(), [ Validators.required]],
+      lembrete:[true, [ Validators.required ]]
     });
   }
 
@@ -160,7 +123,7 @@ export class NovoMedicamentoComponent implements OnInit {
   }
 
   listarMembros(){
-    this.medicamentoService.listarMembros().subscribe((membros:Membro[]) => {
+    this.membroService.listarTodos().subscribe((membros:Membro[]) => {
       this.membros = membros;
     } , err => {
       this.showMessage({

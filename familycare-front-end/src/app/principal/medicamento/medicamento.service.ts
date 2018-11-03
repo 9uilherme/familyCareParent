@@ -41,8 +41,4 @@ export class MedicamentoService {
         return this.http.get(`${API_URL}intervalos`);
     }
 
-    listarMembros(){
-        return this.http.get(`${API_URL}membros`);
-    }
-
 }

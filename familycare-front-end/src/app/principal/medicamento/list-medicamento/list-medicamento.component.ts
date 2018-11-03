@@ -5,7 +5,6 @@ import { MedicamentoService } from '../medicamento.service';
 import { Medicamento } from '../medicamento';
 
 @Component({
-  selector: 'app-list-medicamento',
   templateUrl: './list-medicamento.component.html',
   styleUrls: ['./list-medicamento.component.css']
 })

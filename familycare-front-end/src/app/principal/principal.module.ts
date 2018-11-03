@@ -7,7 +7,6 @@ import { BsDatepickerModule, TimepickerModule } from 'ngx-bootstrap';
 import { NgxMaskModule } from 'ngx-mask';
 import { CoreModule } from '../core/core.module';
 import { VmessageModule } from '../shared/components/vmessage/vmessage.module';
-import { ConsultaComponent } from './consulta/consulta.component';
 import { ConsultaService } from './consulta/consulta.service';
 import { NovaConsultaComponent } from './consulta/nova-consulta/nova-consulta.component';
 import { FooterComponent } from './footer/footer.component';
@@ -23,6 +22,10 @@ import { PrincipalComponent } from './principal.component';
 import { PrincipalRoutingModule } from './principal.rounting.module';
 import { PerfilUsuarioComponent } from './usuario/perfil-usuario/perfil-usuario.component'
 import { UsuarioService } from './usuario/usuario.service';
+import { NovoProfissionalComponent } from './profissional/novo-profissional/novo-profissional.component';
+import { ListProfissionalComponent } from './profissional/list-profissional/list-profissional.component';
+import { ProfissionalService } from './profissional/profissional.service';
+import { ListConsultaComponent } from './consulta/list-consulta/list-consulta.component';
 
 
 @NgModule({
@@ -33,11 +36,14 @@ import { UsuarioService } from './usuario/usuario.service';
         PerfilUsuarioComponent,
         PrincipalComponent,
         NovoMedicamentoComponent,
-        ConsultaComponent,
+        NovaConsultaComponent,
+        ListConsultaComponent,
         ListMedicamentoComponent,
         NovoMembroComponent,
         ListMembroComponent,
-        NovaConsultaComponent
+        NovaConsultaComponent,
+        NovoProfissionalComponent,
+        ListProfissionalComponent
     ],
     imports: [
         HttpClientModule,
@@ -47,16 +53,17 @@ import { UsuarioService } from './usuario/usuario.service';
         ReactiveFormsModule,
         VmessageModule,
         CoreModule,
+        FormsModule,
         BsDatepickerModule.forRoot(),
         TimepickerModule.forRoot(),
-        NgxMaskModule.forRoot(),
-        FormsModule
+        NgxMaskModule.forRoot()
     ],
     providers:[
+        UsuarioService,
+        ConsultaService,
         MedicamentoService,
         MembroService,
-        ConsultaService,
-        UsuarioService
+        ProfissionalService,
     ]
 })
 export class PrincipalModule{}
