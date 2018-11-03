@@ -1,11 +1,11 @@
 <section class="content-header">
   <h1>
-    Cadastro de Consulta
+    Cadastro de Consultas
     <small>Agende aqui a sua consulta</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="#">Consulta</a></li>
+    <li><a [routerLink]="['']"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a [routerLink]="['../list-consulta']">Consultas</a></li>
     <li class="active">Nova Consulta</li>
   </ol>
 </section>
@@ -23,75 +23,135 @@
         
         <!-- form start -->
         <form [formGroup]="consultaForm" (submit)="salvar()" role="form">
-            <div role="alert" *ngIf="message">
-              <strong>{{ message.text }}</strong>
-            </div>
-            <div class="box-body">
-              <div [ngClass]="getFormGroupClass(f.membro.invalid,f.membro.dirty)">
-                <label for="inputNome" class="control-label">Membro</label>
-                <input type="text"
-                    formControlName="membro" 
-                    class="form-control" 
-                    #inputNome 
-                    placeholder="Nome do Filho(a)" 
-                    [(ngModel)]="consulta.membro.nome"
-                    autofocus>
-                  <div *ngIf="f.membro.errors" class="invalid-feedback">
-                      <span *ngIf="f.membro.errors.required && submitted" class="help-block">Nome do Filho é obrigatório</span>
-                      <span *ngIf="f.membro.errors.minlength" class="help-block">Tamanho mínimo de 1 caracteres</span>
-                      <span *ngIf="f.membro.errors.maxlength" class="help-block">Tamanho Máximo de 255 caracteres</span>
-                    </div>
-                </div>
-                <div [ngClass]="getFormGroupClass(f.profissional.invalid,f.profissional.dirty)">
-                  <label for="inputNome" class="control-label">Profissional da saúde</label>
-                  <input type="text"
-                      formControlName="profissional" 
-                      class="form-control" 
-                      #inputProfissional 
-                      placeholder="Nome do Médico(a)" 
-                      [(ngModel)]="consulta.profissional.nome"
-                      autofocus>
-                    <div *ngIf="f.profissional.errors" class="invalid-feedback">
-                        <span *ngIf="f.profissional.errors.required && submitted" class="help-block">Nome do Médico é obrigatório</span>
-                        <span *ngIf="f.profissional.errors.minlength" class="help-block">Tamanho mínimo de 1 caracteres</span>
-                        <span *ngIf="f.profissional.errors.maxlength" class="help-block">Tamanho Máximo de 255 caracteres</span>
-                      </div>
-                  </div>
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <label>Date:</label>
-                      <div class="input-group date">
-                        <div class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
-                        </div>
-                        <input type="text" 
-                        class="form-control pull-right" 
-                        id="datepicker">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="bootstrap-timepicker">
-                      <div class="form-group">
-                        <label>Hora:</label>
-                        <div class="input-group">
-                          <div class="input-group-addon">
-                              <i class="fa fa-clock-o"></i>
-                          </div>
-                          <input type="text" class="form-control timepicker">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            </div>
-            <div class="box-footer">
-              <button [disabled]="consultaForm.invalid || consultaForm.pending"  class="btn btn-info pull-right">Salvar</button>
-              <button type="submit" class="btn btn-default">Cancel</button>
-            </div>
-          </form>
+          <div [ngClass]="classCss" role="alert" *ngIf="message">
+            <strong>{{ message.text }}</strong>
           </div>
-        </div>
+          <div class="box-body">
+            <div [ngClass]="getFormGroupClass(f.descricao.invalid,f.descricao.dirty)">
+              <label for="inputDescricao" class="control-label">Descrição da consulta</label>
+              <input type="text"
+                  formControlName="descricao" 
+                  class="form-control" 
+                  #inputDescricao 
+                  placeholder="Descrição da consulta"
+                  autofocus>
+                <div *ngIf="f.descricao.errors" class="invalid-feedback">
+                  <span *ngIf="f.descricao.errors.required && submited" class="help-block">Descrição é obrigatório</span>
+                  <span *ngIf="f.descricao.errors.minlength" class="help-block">Tamanho mínimo de 1 caracteres</span>
+                  <span *ngIf="f.descricao.errors.maxlength" class="help-block">Tamanho Máximo de 255 caracteres</span>
+                </div>
+            </div>
+
+            <div [ngClass]="getFormGroupClass(f.endereco.invalid,f.endereco.dirty)">
+              <label for="inputEndereco" class="control-label">Endereço</label>
+              <input 
+                type="text"
+                id="inputEndereco"
+                formControlName="endereco" 
+                class="form-control"
+                placeholder="Endereço">
+              <div *ngIf="f.endereco.errors" class="invalid-feedback">
+                <span *ngIf="f.endereco.errors.maxlength" class="help-block">Tamanho Máximo de 255 caracteres</span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6">
+                <div [ngClass]="getFormGroupClass(f.membro.invalid,f.membro.dirty)">
+                    <label for="inputMembro" class="control-label">Membro da família</label>
+                  <select 
+                    formControlName="membro"
+                    [compareWith]="compareMembro"
+                    class="form-control select2"
+                    id="inputMembro"
+                    style="width: 100%;">
+                    <option value="">Selecione</option>
+                    <option 
+                      *ngFor="let membro of membros"
+                      [ngValue]="membro">
+                      {{membro.nome}}
+                    </option>
+                  </select>
+                  <div *ngIf="f.membro.errors" class="invalid-feedback">
+                      <span *ngIf="f.membro.errors.required && submited" class="help-block">Membro é obrigatório</span>
+                  </div>
+                </div> 
+              </div>
+              <div class="col-lg-6">
+                <div [ngClass]="getFormGroupClass(f.profissional.invalid,f.profissional.dirty)">
+                  <label for="inputProfissional" class="control-label">Profissional</label>
+                  <select 
+                    formControlName="profissional"
+                    [compareWith]="compareProfissional"
+                    class="form-control select2"
+                    id="inputProfissional"
+                    style="width: 100%;">
+                    <option value="">Selecione</option>
+                    <option 
+                      *ngFor="let profissional of profissionais"
+                      [ngValue]="profissional">
+                      {{profissional.nome}}
+                    </option>
+                  </select>
+                  <div *ngIf="f.profissional.errors" class="invalid-feedback">
+                      <span *ngIf="f.profissional.errors.required && submited" class="help-block">Profissional é obrigatório</span>
+                  </div>
+                </div>  
+              </div>
+            </div>
+
+            <div>
+              <label for="inputLembrete" class="control-label">
+                  <input type="checkbox"
+                    formControlName="lembrete"
+                    id="inputLembrete"
+                  > Lembrete
+              </label>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6">
+                <div [ngClass]="getFormGroupClass(f.data.invalid,f.data.dirty)">
+                  <label for="inputData" class="control-label">Data</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text"
+                      bsDatepicker
+                      [bsConfig]="{dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-dark-blue' }"
+                      formControlName="data"
+                      placement="bottom"
+                      class="form-control"
+                      id="inputData">
+                  </div>
+                  <div *ngIf="f.data.errors" class="invalid-feedback">
+                    <span *ngIf="f.data.errors.required && submited" class="help-block">Data é obrigatória</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div [ngClass]="getFormGroupClass(f.hora.invalid,f.hora.dirty)">
+                  <label for="inputHora" class="control-label">Hora</label>
+                  <div class="input-group">
+                      <timepicker 
+                      formControlName="hora" 
+                      id="inputHora" [showMeridian]="false" [showSeconds]="true" [showSpinners]="false"></timepicker>
+                  </div>
+                  <div *ngIf="f.hora.errors" class="invalid-feedback">
+                    <span *ngIf="f.hora.errors.required && submited" class="help-block">Hora é obrigatória</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="box-footer">
+            <button [disabled]="consultaForm.invalid || consultaForm.pending"  class="btn btn-info pull-right">Salvar</button>
+            <button type="reset" (click)="consultaForm.reset()" class="btn btn-default">Cancel</button>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </section>
