@@ -27,7 +27,6 @@ import { NovoProfissionalComponent } from './profissional/novo-profissional/novo
 import { ProfissionalService } from './profissional/profissional.service';
 import { PerfilUsuarioComponent } from './usuario/perfil-usuario/perfil-usuario.component';
 import { UsuarioService } from './usuario/usuario.service';
-import { ModalContentComponent } from './membro/novo-membro/modal-content-component';
 
 
 @NgModule({
@@ -45,8 +44,7 @@ import { ModalContentComponent } from './membro/novo-membro/modal-content-compon
         ListMembroComponent,
         NovaConsultaComponent,
         NovoProfissionalComponent,
-        ListProfissionalComponent,
-        ModalContentComponent
+        ListProfissionalComponent
     ],
     imports: [
         HttpClientModule,
@@ -72,7 +70,6 @@ import { ModalContentComponent } from './membro/novo-membro/modal-content-compon
         BsModalRef
     ],
     entryComponents: [
-        ModalContentComponent,
         NovoMembroComponent
     ]
 })

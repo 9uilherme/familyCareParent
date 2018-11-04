@@ -57,12 +57,12 @@
                       {{membro.nome}}
                     </option>
                   </select>
-                  <div *ngIf="f.membro.errors" class="invalid-feedback">
-                      <span *ngIf="f.membro.errors.required && submited" class="help-block">Membro é obrigatório</span>
-                  </div>
                   <span class="input-group-btn">
                     <button type="button" style="margin-top: 25px;" class="btn btn-primary" (click)="openModalWithComponent()">+</button>
                   </span>
+                  <div *ngIf="f.membro.errors" class="invalid-feedback">
+                      <span *ngIf="f.membro.errors.required && submited" class="help-block">Membro é obrigatório</span>
+                  </div>
                 </div>     
                
                 <div class="row">

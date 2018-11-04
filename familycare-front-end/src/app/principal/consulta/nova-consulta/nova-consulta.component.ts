@@ -8,6 +8,9 @@ import { MembroService } from '../../membro/membro.service';
 import { ProfissionalService } from '../../profissional/profissional.service';
 import { PlatformDetectorService } from 'src/app/core/platform-detector/platform-detector.service';
 import { Consulta } from '../consulta';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap';
+import { NovoMembroComponent } from '../../membro/novo-membro/novo-membro.component';
+import { NovoProfissionalComponent } from '../../profissional/novo-profissional/novo-profissional.component';
 
 @Component({
   templateUrl: './nova-consulta.component.html',
@@ -21,15 +24,18 @@ export class NovaConsultaComponent implements OnInit {
     submited:boolean = false;
     membros:Membro[] = [];
     profissionais:Profissional[] = [];
+    bsModalRef: BsModalRef;    
+
     @ViewChild('inputDescricao') inputDescricao: ElementRef<HTMLInputElement>;
-  
+
     constructor(
         private formBuilder: FormBuilder,
         private consultaService: ConsultaService,
         private membroService: MembroService,
         private profissionalService: ProfissionalService,
         private route: ActivatedRoute,
-        private platformDetectorService: PlatformDetectorService
+        private platformDetectorService: PlatformDetectorService,
+        private modalService: BsModalService
       ){}
   
       ngOnInit(): void {
@@ -46,6 +52,21 @@ export class NovaConsultaComponent implements OnInit {
         if(this.platformDetectorService.isPlatformBrowser){
             this.inputDescricao.nativeElement.focus();
         }
+    }
+  
+    public openModalMembro() {
+      const initialState = {
+        modalParam: true
+      };
+      this.bsModalRef = this.modalService.show(NovoMembroComponent, {initialState});
+      this.bsModalRef.content.closeBtnName = 'Close';
+    }
+    public openModalProfissional() {
+      const initialState = {
+        modalParam: true
+      };
+      this.bsModalRef = this.modalService.show(NovoProfissionalComponent, {initialState});
+      this.bsModalRef.content.closeBtnName = 'Close';
     }
   
     inicializarFormProfissional(){

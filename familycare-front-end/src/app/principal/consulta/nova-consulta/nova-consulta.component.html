@@ -57,7 +57,7 @@
 
             <div class="row">
               <div class="col-lg-6">
-                <div [ngClass]="getFormGroupClass(f.membro.invalid,f.membro.dirty)">
+                <div [ngClass]="getFormGroupClass(f.membro.invalid,f.membro.dirty)" class="input-group">
                     <label for="inputMembro" class="control-label">Membro da família</label>
                   <select 
                     formControlName="membro"
@@ -72,13 +72,16 @@
                       {{membro.nome}}
                     </option>
                   </select>
+                  <span class="input-group-btn">
+                    <button type="button" style="margin-top: 25px;" class="btn btn-primary" (click)="openModalMembro()">+</button>
+                  </span>
                   <div *ngIf="f.membro.errors" class="invalid-feedback">
                       <span *ngIf="f.membro.errors.required && submited" class="help-block">Membro é obrigatório</span>
                   </div>
                 </div> 
               </div>
               <div class="col-lg-6">
-                <div [ngClass]="getFormGroupClass(f.profissional.invalid,f.profissional.dirty)">
+                <div [ngClass]="getFormGroupClass(f.profissional.invalid,f.profissional.dirty)" class="input-group">
                   <label for="inputProfissional" class="control-label">Profissional</label>
                   <select 
                     formControlName="profissional"
@@ -93,6 +96,9 @@
                       {{profissional.nome}}
                     </option>
                   </select>
+                  <span class="input-group-btn">
+                    <button type="button" style="margin-top: 25px;" class="btn btn-primary" (click)="openModalProfissional()">+</button>
+                  </span>
                   <div *ngIf="f.profissional.errors" class="invalid-feedback">
                       <span *ngIf="f.profissional.errors.required && submited" class="help-block">Profissional é obrigatório</span>
                   </div>

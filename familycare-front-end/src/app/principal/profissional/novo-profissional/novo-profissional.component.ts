@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PlatformDetectorService } from 'src/app/core/platform-detector/platform-detector.service';
 import { Profissional } from '../profissional';
 import { ProfissionalService } from '../profissional.service';
+import { BsModalRef } from 'ngx-bootstrap';
 
 @Component({
   templateUrl: './novo-profissional.component.html',
@@ -15,13 +16,15 @@ export class NovoProfissionalComponent implements OnInit {
   message:any = {};
   classCss:any = {};
   submited:boolean = false;
+  modalParam : boolean = false;
   @ViewChild('inputNome') inputNome: ElementRef<HTMLInputElement>;
 
   constructor(
       private formBuilder: FormBuilder,
       private profissionalService: ProfissionalService,
       private route: ActivatedRoute,
-      private platformDetectorService: PlatformDetectorService
+      private platformDetectorService: PlatformDetectorService,
+      public bsModalRef: BsModalRef
     ){}
 
     ngOnInit(): void {

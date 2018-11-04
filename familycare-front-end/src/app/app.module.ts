@@ -24,7 +24,7 @@ registerLocaleData(localePt, 'pt-BR');
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },
-    DialogService,
+    DialogService
   ],
   bootstrap: [AppComponent]
 })
