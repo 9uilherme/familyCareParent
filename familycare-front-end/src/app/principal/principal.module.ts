@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BsDatepickerModule, TimepickerModule } from 'ngx-bootstrap';
-import { ModalModule } from 'ngx-bootstrap/modal'
+import { ModalModule, BsModalService, BsModalRef } from 'ngx-bootstrap/modal'
 import { NgxMaskModule } from 'ngx-mask';
 import { CoreModule } from '../core/core.module';
 import { VmessageModule } from '../shared/components/vmessage/vmessage.module';
@@ -68,9 +68,12 @@ import { ModalContentComponent } from './membro/novo-membro/modal-content-compon
         MedicamentoService,
         MembroService,
         ProfissionalService,
+        BsModalService,
+        BsModalRef
     ],
     entryComponents: [
-        ModalContentComponent
+        ModalContentComponent,
+        NovoMembroComponent
     ]
 })
 export class PrincipalModule{}

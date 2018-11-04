@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap';
 import { PlatformDetectorService } from 'src/app/core/platform-detector/platform-detector.service';
 import { Membro } from '../membro';
 import { MembroService } from '../membro.service';
