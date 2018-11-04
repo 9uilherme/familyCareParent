@@ -1,9 +1,12 @@
 <section class="content-header">
   <h1>
     Cadastro de Membros
-    <small>Cadastre aqui os membros da sua família</small>
+    <small *ngIf="!modalParam" >Cadastre aqui os membros da sua família</small>
+    <button *ngIf="modalParam" style="margin: 0" type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
   </h1>
-  <ol class="breadcrumb">
+  <ol *ngIf="!modalParam" class="breadcrumb">
     <li><a [routerLink]="['']"><i class="fa fa-dashboard"></i> Home</a></li>
     <li><a [routerLink]="['../list-membro']">Membros</a></li>
     <li class="active">Novo Membro</li>
@@ -17,7 +20,7 @@
   <div class="col-md-12">
   <!-- general form elements -->
     <div class="box box-primary">
-        <div class="box-header with-border">
+        <div *ngIf="!modalParam" class="box-header with-border">
           <h3 class="box-title">Formulário</h3>
         </div>
         
@@ -163,5 +166,5 @@
           </form>
         </div>
       </div>
-  </div>
-</section>
+    </div>
+  </section>

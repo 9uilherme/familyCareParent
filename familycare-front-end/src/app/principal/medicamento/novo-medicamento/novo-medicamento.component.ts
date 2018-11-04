@@ -1,3 +1,4 @@
+import { NovoMembroComponent } from './../../membro/novo-membro/novo-membro.component';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -6,6 +7,7 @@ import { Medicamento } from '../medicamento';
 import { MedicamentoService } from '../medicamento.service';
 import { Membro } from '../../membro/membro';
 import { MembroService } from '../../membro/membro.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 @Component({
   templateUrl: './novo-medicamento.component.html'
@@ -21,12 +23,15 @@ export class NovoMedicamentoComponent implements OnInit {
   membros:Membro[] = [];
   @ViewChild('inputNome') inputNome: ElementRef<HTMLInputElement>;
 
+  bsModalRef: BsModalRef;
+
   constructor(
       private formBuilder: FormBuilder,
       private medicamentoService: MedicamentoService,
       private membroService: MembroService,
       private route: ActivatedRoute,
-      private platformDetectorService: PlatformDetectorService
+      private platformDetectorService: PlatformDetectorService,
+      private modalService: BsModalService
     ){}
 
     ngOnInit(): void {
@@ -45,6 +50,15 @@ export class NovoMedicamentoComponent implements OnInit {
           this.inputNome.nativeElement.focus();
       }
   }
+
+  openModalWithComponent() {
+    const initialState = {
+      modalParam: true
+    };
+    this.bsModalRef = this.modalService.show(NovoMembroComponent, {initialState});
+    this.bsModalRef.content.closeBtnName = 'Close';
+  }
+
 
   inicializarFormMedicamento(){
     this.medicamentoForm = this.formBuilder.group({

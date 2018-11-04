@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { BsModalRef } from 'ngx-bootstrap/modal';
+import { PlatformDetectorService } from 'src/app/core/platform-detector/platform-detector.service';
 import { Membro } from '../membro';
 import { MembroService } from '../membro.service';
-import { PlatformDetectorService } from 'src/app/core/platform-detector/platform-detector.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   templateUrl: './novo-membro.component.html',
@@ -18,13 +19,15 @@ export class NovoMembroComponent implements OnInit {
   sexos:string[] = [];
   tiposSanguineos:string[] = [];
   fatoresRh:string[] = [];
-  @ViewChild('inputNome') inputNome: ElementRef<HTMLInputElement>;
+  modalParam : boolean = false;
 
+  @ViewChild('inputNome') inputNome: ElementRef<HTMLInputElement>;
   constructor(
       private formBuilder: FormBuilder,
       private membroService: MembroService,
       private route: ActivatedRoute,
-      private platformDetectorService: PlatformDetectorService
+      private platformDetectorService: PlatformDetectorService,
+      public bsModalRef: BsModalRef
     ){}
 
     ngOnInit(): void {

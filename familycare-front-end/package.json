@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
     "admin-lte": "^2.4.8",
+    "angular-custom-modal": "^1.2.0",
     "core-js": "^2.5.4",
     "jquery": "^3.3.1",
     "jquery-ui-dist": "^1.12.1",

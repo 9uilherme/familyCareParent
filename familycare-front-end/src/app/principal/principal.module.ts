@@ -4,10 +4,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BsDatepickerModule, TimepickerModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal'
 import { NgxMaskModule } from 'ngx-mask';
 import { CoreModule } from '../core/core.module';
 import { VmessageModule } from '../shared/components/vmessage/vmessage.module';
 import { ConsultaService } from './consulta/consulta.service';
+import { ListConsultaComponent } from './consulta/list-consulta/list-consulta.component';
 import { NovaConsultaComponent } from './consulta/nova-consulta/nova-consulta.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
@@ -20,12 +22,12 @@ import { NovoMembroComponent } from './membro/novo-membro/novo-membro.component'
 import { MenuComponent } from './menu/menu.component';
 import { PrincipalComponent } from './principal.component';
 import { PrincipalRoutingModule } from './principal.rounting.module';
-import { PerfilUsuarioComponent } from './usuario/perfil-usuario/perfil-usuario.component'
-import { UsuarioService } from './usuario/usuario.service';
-import { NovoProfissionalComponent } from './profissional/novo-profissional/novo-profissional.component';
 import { ListProfissionalComponent } from './profissional/list-profissional/list-profissional.component';
+import { NovoProfissionalComponent } from './profissional/novo-profissional/novo-profissional.component';
 import { ProfissionalService } from './profissional/profissional.service';
-import { ListConsultaComponent } from './consulta/list-consulta/list-consulta.component';
+import { PerfilUsuarioComponent } from './usuario/perfil-usuario/perfil-usuario.component';
+import { UsuarioService } from './usuario/usuario.service';
+import { ModalContentComponent } from './membro/novo-membro/modal-content-component';
 
 
 @NgModule({
@@ -43,7 +45,8 @@ import { ListConsultaComponent } from './consulta/list-consulta/list-consulta.co
         ListMembroComponent,
         NovaConsultaComponent,
         NovoProfissionalComponent,
-        ListProfissionalComponent
+        ListProfissionalComponent,
+        ModalContentComponent
     ],
     imports: [
         HttpClientModule,
@@ -56,7 +59,8 @@ import { ListConsultaComponent } from './consulta/list-consulta/list-consulta.co
         FormsModule,
         BsDatepickerModule.forRoot(),
         TimepickerModule.forRoot(),
-        NgxMaskModule.forRoot()
+        NgxMaskModule.forRoot(),
+        ModalModule.forRoot()
     ],
     providers:[
         UsuarioService,
@@ -64,6 +68,9 @@ import { ListConsultaComponent } from './consulta/list-consulta/list-consulta.co
         MedicamentoService,
         MembroService,
         ProfissionalService,
+    ],
+    entryComponents: [
+        ModalContentComponent
     ]
 })
 export class PrincipalModule{}
