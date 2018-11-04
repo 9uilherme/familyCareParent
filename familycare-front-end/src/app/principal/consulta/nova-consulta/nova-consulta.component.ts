@@ -60,6 +60,11 @@ export class NovaConsultaComponent implements OnInit {
       };
       this.bsModalRef = this.modalService.show(NovoMembroComponent, {initialState});
       this.bsModalRef.content.closeBtnName = 'Close';
+      this.bsModalRef.content.action.subscribe((value) => {
+        if (value) {
+          this.listarMembros();
+        }
+      });
     }
     public openModalProfissional() {
       const initialState = {
@@ -67,6 +72,11 @@ export class NovaConsultaComponent implements OnInit {
       };
       this.bsModalRef = this.modalService.show(NovoProfissionalComponent, {initialState});
       this.bsModalRef.content.closeBtnName = 'Close';
+      this.bsModalRef.content.action.subscribe((value) => {
+        if (value) {
+          this.listarProfissionais();
+        }
+      });
     }
   
     inicializarFormProfissional(){

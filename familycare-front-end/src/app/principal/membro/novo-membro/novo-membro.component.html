@@ -2,7 +2,7 @@
   <h1>
     Cadastro de Membros
     <small *ngIf="!modalParam" >Cadastre aqui os membros da sua família</small>
-    <button *ngIf="modalParam" style="margin: 0" type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <button *ngIf="modalParam" style="margin: 0" type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide($event);">
         <span aria-hidden="true">&times;</span>
     </button>
   </h1>

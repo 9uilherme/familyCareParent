@@ -58,7 +58,7 @@
                     </option>
                   </select>
                   <span class="input-group-btn">
-                    <button type="button" style="margin-top: 25px;" class="btn btn-primary" (click)="openModalWithComponent()">+</button>
+                    <button type="button" style="margin-top: 25px;" class="btn btn-primary" (onClose)="listarMembros()" (click)="openModalWithComponent()">+</button>
                   </span>
                   <div *ngIf="f.membro.errors" class="invalid-feedback">
                       <span *ngIf="f.membro.errors.required && submited" class="help-block">Membro é obrigatório</span>

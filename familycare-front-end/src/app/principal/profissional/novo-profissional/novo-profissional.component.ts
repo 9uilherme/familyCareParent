@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PlatformDetectorService } from 'src/app/core/platform-detector/platform-detector.service';
@@ -17,6 +17,7 @@ export class NovoProfissionalComponent implements OnInit {
   classCss:any = {};
   submited:boolean = false;
   modalParam : boolean = false;
+  @Output() action: EventEmitter<any> = new EventEmitter();
   @ViewChild('inputNome') inputNome: ElementRef<HTMLInputElement>;
 
   constructor(
@@ -86,6 +87,7 @@ export class NovoProfissionalComponent implements OnInit {
       .subscribe((profissional: Profissional) => {
         this.profissionalForm.reset();
         this.submited = false;
+        this.action.emit(true);
         this.showMessage({
           type: 'success',
           text: `Registered ${profissional.nome} successfully`
